@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Answer Keys · ELEVATE Apple Ecosystem Puzzles</title>
+
+<style>
+:root{
+  --ink:#1A1A2E; --white:#fff; --cream:#FFFCF5;
+  --blue:#1B4FD8; --blue-lt:#EEF3FF; --blue-md:#C5D7FF;
+  --coral:#F4603A; --coral-lt:#FFF0EC;
+  --sun:#FFD60A; --sun-lt:#FFFBE6;
+  --green:#1D9E6B; --green-lt:#E4F8F0; --green-md:#A8E6CC;
+  --purp:#6C3DD4; --purp-lt:#F2EDFF; --purp-md:#C9B8FF;
+  --gray:#6B6B7B; --rule:#E8E4DC;
+  --red:#E05252; --red-lt:#FDEAEA;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--cream);color:var(--ink);}
+
+/* ── PAGE ── */
+.page{max-width:900px;margin:0 auto;padding:40px 28px 80px;}
+
+/* ── HEADER ── */
+.hdr-kicker{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--green);color:var(--white);
+  font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+  padding:5px 14px;border-radius:100px;margin-bottom:14px;
+  box-shadow:2px 2px 0 rgba(0,0,0,0.12);
+}
+.hdr-title{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:50px;line-height:1.0;color:var(--ink);margin-bottom:8px;
+}
+.hdr-title .a1{color:var(--green);}
+.hdr-title .a2{color:var(--blue);}
+.hdr-desc{font-size:14px;font-weight:600;color:var(--gray);line-height:1.65;margin-bottom:28px;max-width:560px;}
+.hdr-desc strong{color:var(--ink);}
+
+/* ── FACILITATOR BANNER ── */
+.fac-banner{
+  background:var(--ink);color:var(--white);
+  border-radius:16px;padding:16px 22px;
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:32px;
+}
+.fac-icon{font-size:28px;flex-shrink:0;}
+.fac-text{font-size:14px;font-weight:700;line-height:1.55;}
+.fac-text strong{color:var(--sun);}
+
+/* ── TABS ── */
+.tabs{
+  display:flex;gap:8px;margin-bottom:28px;
+}
+.tab{
+  font-family:Georgia,'Times New Roman',serif;font-size:16px;
+  padding:10px 24px;border-radius:100px;border:none;cursor:pointer;
+  transition:all 0.2s;
+}
+.tab.active-tab{
+  background:var(--blue);color:var(--white);
+  box-shadow:0 3px 0 var(--blue-md);
+}
+.tab.inactive-tab{
+  background:var(--white);color:var(--gray);
+  border:2px solid var(--rule);
+}
+.tab.inactive-tab:hover{background:var(--blue-lt);color:var(--blue);}
+
+/* ── PANEL ── */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* ── SECTION HEAD ── */
+.sec-head{
+  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.sec-icon{font-size:28px;}
+.sec-title{font-family:Georgia,'Times New Roman',serif;font-size:26px;color:var(--ink);}
+.sec-subtitle{font-size:13px;font-weight:600;color:var(--gray);}
+
+/* ── REVEAL CONTROLS ── */
+.reveal-bar{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:var(--white);border-radius:14px;padding:12px 18px;
+  box-shadow:0 3px 0 var(--rule);margin-bottom:20px;
+}
+.reveal-bar p{font-size:13px;font-weight:700;color:var(--gray);flex:1;}
+.btn{
+  font-family:Georgia,'Times New Roman',serif;font-size:14px;
+  padding:9px 22px;border-radius:100px;border:none;cursor:pointer;transition:all 0.15s;
+}
+.btn-green{background:var(--green);color:var(--white);box-shadow:0 3px 0 var(--green-md);}
+.btn-green:hover{background:#157A52;transform:translateY(-1px);}
+.btn-ghost{background:var(--white);color:var(--gray);border:2px solid var(--rule);}
+.btn-ghost:hover{background:var(--rule);}
+.btn-print{background:var(--purp);color:var(--white);box-shadow:0 3px 0 var(--purp-md);}
+.btn-print:hover{background:#4E2AAA;transform:translateY(-1px);}
+
+/* ── CROSSWORD ANSWER GRID ── */
+.cw-layout{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;}
+.cw-grid-wrap{
+  background:var(--white);border-radius:20px;padding:14px;
+  box-shadow:0 4px 0 var(--rule),0 8px 24px rgba(0,0,0,0.05);
+  overflow:auto;
+}
+.cw-table{border-collapse:collapse;display:block;}
+.cw-row-g{display:flex;}
+.cw-cell{
+  width:32px;height:32px;
+  position:relative;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.cw-cell.black{
+  background:var(--ink);border-radius:2px;
+}
+.cw-cell.white{
+  border:1.5px solid #C8C0B0;background:var(--white);
+}
+.cw-cell-num{
+  position:absolute;top:1px;left:2px;
+  font-size:7px;font-weight:800;color:var(--gray);line-height:1;
+}
+.cw-letter{
+  font-family:Georgia,'Times New Roman',serif;font-size:16px;
+  color:transparent;/* hidden until revealed */
+  transition:color 0.3s;
+}
+.cw-letter.show{color:var(--blue);}
+.cw-letter.highlight{color:var(--green);}
+
+/* word highlight overlay */
+.cw-cell.white.word-highlight{
+  background:var(--green-lt);
+  border-color:var(--green-md);
+}
+.cw-cell.white.word-highlight .cw-letter{color:var(--green);}
+
+/* ── CW ANSWER LIST ── */
+.cw-answers{
+  background:var(--white);border-radius:20px;padding:20px;
+  box-shadow:0 4px 0 var(--rule),0 8px 24px rgba(0,0,0,0.05);
+  overflow-y:auto;max-height:520px;
+}
+.cw-ans-section{margin-bottom:20px;}
+.cw-ans-head{
+  font-family:Georgia,'Times New Roman',serif;font-size:15px;color:var(--blue);
+  border-bottom:2px solid var(--blue-lt);padding-bottom:6px;margin-bottom:10px;
+}
+.cw-ans-item{
+  display:flex;align-items:flex-start;gap:8px;
+  padding:6px 8px;border-radius:8px;cursor:pointer;
+  transition:background 0.15s;margin-bottom:2px;
+}
+.cw-ans-item:hover{background:var(--blue-lt);}
+.cw-ans-item.active-ans{background:var(--sun-lt);border-left:3px solid var(--sun);}
+.cw-ans-num{
+  font-family:Georgia,'Times New Roman',serif;font-size:13px;
+  color:var(--blue);min-width:24px;flex-shrink:0;
+}
+.cw-ans-word{
+  font-family:Georgia,'Times New Roman',serif;font-size:14px;
+  color:var(--green);min-width:100px;
+}
+.cw-ans-clue{font-size:11px;font-weight:600;color:var(--gray);line-height:1.4;}
+
+/* ── WORD SEARCH ANSWER ── */
+.ws-layout{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;}
+.ws-grid-wrap{
+  background:var(--white);border-radius:20px;padding:14px;
+  box-shadow:0 4px 0 var(--rule),0 8px 24px rgba(0,0,0,0.05);
+  overflow:auto;
+}
+.ws-row-a{display:flex;}
+.ws-cell-a{
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:Georgia,'Times New Roman',serif;font-size:14px;
+  color:var(--ink);border-radius:5px;transition:all 0.2s;
+  flex-shrink:0;
+}
+
+/* Found word colors */
+.ws-cell-a.found-0{background:#FFE0E0;color:var(--coral);}
+.ws-cell-a.found-1{background:#E0F0FF;color:var(--blue);}
+.ws-cell-a.found-2{background:#E8FAF0;color:var(--green);}
+.ws-cell-a.found-3{background:#F2EDFF;color:var(--purp);}
+.ws-cell-a.found-4{background:#FFF6CC;color:#7A5A00;}
+.ws-cell-a.found-5{background:#E3F5F3;color:#0B7A6E;}
+.ws-cell-a.found-6{background:#FFE8E0;color:#C0392B;}
+.ws-cell-a.found-7{background:#E8EEF8;color:#2C3E8C;}
+.ws-cell-a.found-8{background:#F0FFF4;color:#1A6B4A;}
+.ws-cell-a.found-9{background:#FEF9E7;color:#7D6608;}
+.ws-cell-a.found-10{background:#F5EEF8;color:#6C3483;}
+.ws-cell-a.found-11{background:#EAF2FF;color:#1A5276;}
+.ws-cell-a.found-12{background:#FEF9EC;color:#7E5109;}
+.ws-cell-a.found-13{background:#E8F8F5;color:#148F77;}
+.ws-cell-a.found-14{background:#FDFEFE;color:#2E4057;background:#EEF2F8;}
+.ws-cell-a.found-15{background:#FEF0F7;color:#8E44AD;}
+.ws-cell-a.dimmed{opacity:0.22;}
+.ws-cell-a.hidden-ans{color:transparent;background:transparent;}
+
+/* Word answer list */
+.ws-word-list{
+  background:var(--white);border-radius:20px;padding:20px;
+  box-shadow:0 4px 0 var(--rule),0 8px 24px rgba(0,0,0,0.05);
+  min-width:200px;
+}
+.ws-wl-title{font-family:Georgia,'Times New Roman',serif;font-size:18px;color:var(--ink);margin-bottom:4px;}
+.ws-wl-sub{font-size:11px;font-weight:700;color:var(--gray);margin-bottom:14px;}
+.ws-word-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:7px 10px;border-radius:10px;border:1.5px solid var(--rule);
+  margin-bottom:7px;cursor:pointer;transition:all 0.15s;
+}
+.ws-word-item:hover{border-color:var(--blue-md);background:var(--blue-lt);}
+.ws-word-item.active-ws{border-color:var(--green);background:var(--green-lt);}
+.ws-word-label{
+  font-family:Georgia,'Times New Roman',serif;font-size:14px;color:var(--ink);
+}
+.ws-word-dir{
+  font-size:10px;font-weight:800;color:var(--gray);
+  background:var(--rule);padding:2px 8px;border-radius:100px;
+  text-transform:uppercase;letter-spacing:0.06em;
+}
+.ws-word-item.active-ws .ws-word-dir{background:var(--green);color:var(--white);}
+
+/* direction labels */
+const DIR_LABELS = {
+  '0,1':'→','1,0':'↓','0,-1':'←','-1,0':'↑',
+  '1,1':'↘','1,-1':'↙','-1,1':'↗','-1,-1':'↖'
+};
+
+/* ── PRINT SECTION ── */
+.print-section{margin-top:40px;}
+.print-divider{
+  border:none;border-top:2px dashed var(--rule);
+  margin:32px 0;
+}
+
+/* printable grid styles */
+.p-cw-table{border-collapse:collapse;}
+.p-cw-cell{
+  width:22px;height:22px;
+  border:1px solid #C0B8A8;
+  text-align:center;vertical-align:middle;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:11px;color:var(--blue);
+  position:relative;
+}
+.p-cw-cell.pblack{background:var(--ink)!important;color:transparent!important;}
+.p-cw-num{
+  position:absolute;top:1px;left:1px;
+  font-size:5.5px;font-weight:800;color:var(--gray);line-height:1;
+}
+.p-ws-row{display:flex;}
+.p-ws-cell{
+  width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:Georgia,'Times New Roman',serif;font-size:11px;
+}
+
+/* print layout */
+.print-two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:16px;}
+.print-word-entry{
+  font-size:12px;font-weight:700;
+  display:flex;gap:6px;align-items:center;
+  border-bottom:1px solid var(--rule);padding:4px 0;
+}
+.print-word-num{color:var(--purp);font-size:11px;min-width:20px;}
+.print-ans-word{
+  font-family:Georgia,'Times New Roman',serif;font-size:13px;color:var(--green);
+}
+.print-clue-text{font-size:11px;color:var(--gray);line-height:1.3;}
+
+/* WS print highlights */
+.pws-found{
+  border-radius:3px;font-weight:900;
+}
+
+/* ── CONFETTI ── */
+.confetti-wrap{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;overflow:hidden;display:none;}
+.confetti-wrap.show{display:block;}
+.confetto{position:absolute;top:-16px;width:10px;height:10px;border-radius:2px;animation:fall linear forwards;}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+@keyframes popIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+
+/* ── PRINT ── */
+@media print{
+  .no-print{display:none!important;}
+  body{background:#fff;}
+  .page{padding:16px 20px;}
+  .page-break{page-break-after:always;}
+  .panel{display:block!important;}
+  .tabs{display:none!important;}
+}
+
+/* ── MOBILE ── */
+@media(max-width:680px){
+  .cw-layout,.ws-layout{grid-template-columns:1fr;}
+  .hdr-title{font-size:36px;}
+  .cw-cell{width:24px;height:24px;}
+  .cw-letter{font-size:12px;}
+  .ws-cell-a{width:22px;height:22px;font-size:11px;}
+}
+</style>
+</head>
+<body>
+
+<div class="confetti-wrap" id="confettiWrap"></div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hdr-kicker">🔑 ELEVATE · Facilitator Copy</div>
+  <div class="hdr-title"><span class="a1">Answer </span><span class="a2">Keys.</span></div>
+  <p class="hdr-desc">Interactive reveal for live sessions + a clean printable version for facilitators. <strong>Do not share with participants before they've completed the puzzles.</strong></p>
+
+  <div class="fac-banner">
+    <div class="fac-icon">📋</div>
+    <div class="fac-text">
+      <strong>Facilitator Use Only.</strong> Hover a clue or word to highlight it on the grid. Click <em>Reveal All</em> to show every answer at once — great for a live session debrief. Use the Print button for a take-home key.
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs no-print">
+    <button class="tab active-tab" onclick="switchTab('cw')">✏️ Crossword Key</button>
+    <button class="tab inactive-tab" onclick="switchTab('ws')">🔍 Word Search Key</button>
+    <button class="tab inactive-tab" onclick="switchTab('print')">🖨 Printable Sheet</button>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <!-- CROSSWORD PANEL -->
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div class="panel active" id="panel-cw">
+    <div class="sec-head">
+      <div class="sec-icon">✏️</div>
+      <div>
+        <div class="sec-title">Crossword Answer Key</div>
+        <div class="sec-subtitle">Click a clue to highlight that word on the grid · Click "Reveal All" to show everything</div>
+      </div>
+    </div>
+
+    <div class="reveal-bar">
+      <p id="cwRevealStatus">Letters hidden — hover a clue or click Reveal All</p>
+      <button class="btn btn-green" onclick="revealAll()">Reveal All ✓</button>
+      <button class="btn btn-ghost" onclick="hideAll()">Hide All</button>
+    </div>
+
+    <div class="cw-layout">
+      <div class="cw-grid-wrap">
+        <div id="cwGrid"></div>
+      </div>
+      <div class="cw-answers">
+        <div class="cw-ans-section">
+          <div class="cw-ans-head">Across →</div>
+          <div id="cwAcrossClues"></div>
+        </div>
+        <div class="cw-ans-section">
+          <div class="cw-ans-head">Down ↓</div>
+          <div id="cwDownClues"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <!-- WORD SEARCH PANEL -->
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div class="panel" id="panel-ws">
+    <div class="sec-head">
+      <div class="sec-icon">🔍</div>
+      <div>
+        <div class="sec-title">Word Search Answer Key</div>
+        <div class="sec-subtitle">Click a word to highlight its location · Reveal All shows every hidden word</div>
+      </div>
+    </div>
+
+    <div class="reveal-bar">
+      <p id="wsRevealStatus">All words hidden — click a word or Reveal All</p>
+      <button class="btn btn-green" onclick="wsRevealAll()">Reveal All ✓</button>
+      <button class="btn btn-ghost" onclick="wsHideAll()">Hide All</button>
+    </div>
+
+    <div class="ws-layout">
+      <div class="ws-grid-wrap">
+        <div id="wsGrid"></div>
+      </div>
+      <div class="ws-word-list">
+        <div class="ws-wl-title">16 Words</div>
+        <div class="ws-wl-sub">Click to reveal location</div>
+        <div id="wsWordItems"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <!-- PRINT PANEL -->
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <div class="panel" id="panel-print">
+    <div class="sec-head">
+      <div class="sec-icon">🖨</div>
+      <div>
+        <div class="sec-title">Printable Answer Sheet</div>
+        <div class="sec-subtitle">Both answer keys on one page — solved grid + word list with directions</div>
+      </div>
+    </div>
+    <div class="reveal-bar">
+      <p>Ready to print — all answers shown</p>
+      <button class="btn btn-print" onclick="window.print()">🖨 Print Answer Sheet</button>
+    </div>
+
+    <!-- Printable Crossword Key -->
+    <div style="margin-bottom:10px;">
+      <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;color:var(--blue);margin-bottom:4px;">✏️ Crossword — Solved Grid</div>
+      <div style="font-size:12px;font-weight:600;color:var(--gray);margin-bottom:14px;">Blue letters = answers. Numbers match clue list.</div>
+    </div>
+    <div class="print-two-col" style="align-items:start;">
+      <div>
+        <table class="p-cw-table" id="pCwTable"></table>
+      </div>
+      <div>
+        <div style="font-family:Georgia,'Times New Roman',serif;font-size:15px;color:var(--blue);margin-bottom:8px;">Across →</div>
+        <div id="pCwAcross"></div>
+        <div style="font-family:Georgia,'Times New Roman',serif;font-size:15px;color:var(--blue);margin:12px 0 8px;">Down ↓</div>
+        <div id="pCwDown"></div>
+      </div>
+    </div>
+
+    <hr class="print-divider"/>
+
+    <!-- Printable Word Search Key -->
+    <div style="margin-bottom:10px;">
+      <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;color:var(--coral);margin-bottom:4px;">🔍 Word Search — Answer Key</div>
+      <div style="font-size:12px;font-weight:600;color:var(--gray);margin-bottom:14px;">Each word highlighted. Direction shown in the word list.</div>
+    </div>
+    <div class="print-two-col" style="align-items:start;">
+      <div id="pWsGrid"></div>
+      <div>
+        <div style="font-family:Georgia,'Times New Roman',serif;font-size:15px;color:var(--coral);margin-bottom:10px;">Word Locations</div>
+        <div id="pWsWords"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;padding-top:14px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-size:11px;color:var(--gray);">
+      <span><strong>ELEVATE</strong> · Apple U.S. Education Sales · Facilitator Copy — Do Not Distribute</span>
+      <span>Log in. Level up. Leave inspired.</span>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TAB SWITCHING
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function switchTab(id) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>{t.classList.remove('active-tab');t.classList.add('inactive-tab');});
+  document.getElementById(`panel-${id}`).classList.add('active');
+  const tabs = document.querySelectorAll('.tab');
+  const idx = id==='cw'?0:id==='ws'?1:2;
+  tabs[idx].classList.add('active-tab'); tabs[idx].classList.remove('inactive-tab');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CROSSWORD DATA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const CW_SIZE = 15;
+const cwSol = Array.from({length:CW_SIZE},()=>Array(CW_SIZE).fill('.'));
+function pa(r,c,w){for(let i=0;i<w.length;i++)cwSol[r][c+i]=w[i];}
+function pd(c,r,w){for(let i=0;i<w.length;i++)cwSol[r+i][c]=w[i];}
+pa(0,3,"MACBOOK"); pd(0,0,"IPAD"); pd(1,0,"SIRI"); pd(2,0,"IMAC");
+pa(2,5,"ICLOUD"); pd(11,0,"AIRPODS"); pa(4,0,"FACETIME"); pd(12,0,"IPHONE");
+pa(6,2,"AIRDROP"); pd(8,4,"APPLETV"); pa(8,1,"APPSTORE"); pd(13,4,"HOMEKIT");
+pa(12,0,"SHORTCUTS"); pa(14,1,"CONTINUITY"); pd(14,4,"PENCIL"); pd(11,8,"HANDOFF");
+pa(9,5,"SAFARI");
+
+const CW_CLUES = {
+  across: [
+    {num:"1", row:0,  col:3,  len:7,  answer:"MACBOOK",    clue:"Apple's laptop line powered by Apple Silicon"},
+    {num:"5", row:2,  col:5,  len:6,  answer:"ICLOUD",     clue:"Apple's cloud storage and sync service"},
+    {num:"7", row:4,  col:0,  len:8,  answer:"FACETIME",   clue:"Apple's video and audio calling app"},
+    {num:"9", row:6,  col:2,  len:7,  answer:"AIRDROP",    clue:"Wireless file-sharing between nearby Apple devices"},
+    {num:"11",row:8,  col:1,  len:8,  answer:"APPSTORE",   clue:"Where you download apps on Apple devices"},
+    {num:"12",row:9,  col:5,  len:6,  answer:"SAFARI",     clue:"Apple's native web browser"},
+    {num:"13",row:12, col:0,  len:9,  answer:"SHORTCUTS",  clue:"Automation app that connects your apps"},
+    {num:"15",row:14, col:1,  len:10, answer:"CONTINUITY", clue:"Feature suite linking iPhone and Mac"},
+  ],
+  down: [
+    {num:"1", col:0,  row:0,  len:4,  answer:"IPAD",       clue:"Apple's tablet — cornerstone of K-12"},
+    {num:"2", col:1,  row:0,  len:4,  answer:"SIRI",       clue:"Apple's voice assistant"},
+    {num:"3", col:2,  row:0,  len:4,  answer:"IMAC",       clue:"Apple's all-in-one desktop computer"},
+    {num:"4", col:11, row:0,  len:7,  answer:"AIRPODS",    clue:"Apple's wireless earbuds family"},
+    {num:"6", col:12, row:0,  len:6,  answer:"IPHONE",     clue:"Apple's flagship smartphone"},
+    {num:"8", col:8,  row:4,  len:7,  answer:"APPLETV",    clue:"Apple's streaming device and gaming platform"},
+    {num:"10",col:13, row:4,  len:7,  answer:"HOMEKIT",    clue:"Apple's smart home platform"},
+    {num:"11",col:11, row:8,  len:7,  answer:"HANDOFF",    clue:"Start on one device, finish on another"},
+    {num:"14",col:14, row:4,  len:6,  answer:"PENCIL",     clue:"Apple's stylus for iPad"},
+  ]
+};
+
+// Number map for grid display
+const cwNums = {};
+CW_CLUES.across.forEach(c=>cwNums[`${c.row},${c.col}`]=c.num);
+CW_CLUES.down.forEach(c=>{ if(!cwNums[`${c.row},${c.col}`]) cwNums[`${c.row},${c.col}`]=c.num; });
+
+let cwRevealed = false;
+let activeClueId = null;
+
+// Build interactive crossword grid
+function buildCwGrid() {
+  const container = document.getElementById('cwGrid');
+  let html = '<div>';
+  for (let r=0;r<CW_SIZE;r++) {
+    html += '<div class="cw-row-g">';
+    for (let c=0;c<CW_SIZE;c++) {
+      const ch = cwSol[r][c];
+      const isBlack = ch==='.';
+      const num = cwNums[`${r},${c}`];
+      if (isBlack) {
+        html += `<div class="cw-cell black" id="cwc_${r}_${c}"></div>`;
+      } else {
+        html += `<div class="cw-cell white" id="cwc_${r}_${c}">
+          ${num?`<div class="cw-cell-num">${num}</div>`:''}
+          <div class="cw-letter" id="cwl_${r}_${c}">${ch}</div>
+        </div>`;
+      }
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function buildCwClues() {
+  const ac = document.getElementById('cwAcrossClues');
+  const dc = document.getElementById('cwDownClues');
+  ac.innerHTML = CW_CLUES.across.map(c =>
+    `<div class="cw-ans-item" id="cwai_across_${c.num}"
+      onmouseenter="highlightWord('across',${JSON.stringify(c)})"
+      onmouseleave="clearHighlight()"
+      onclick="revealWord('across',${JSON.stringify(c)})">
+      <div class="cw-ans-num">${c.num}</div>
+      <div class="cw-ans-word" id="cwaw_across_${c.num}" style="color:var(--rule);">${c.answer}</div>
+      <div class="cw-ans-clue">${c.clue}</div>
+    </div>`).join('');
+  dc.innerHTML = CW_CLUES.down.map(c =>
+    `<div class="cw-ans-item" id="cwai_down_${c.num}"
+      onmouseenter="highlightWord('down',${JSON.stringify(c)})"
+      onmouseleave="clearHighlight()"
+      onclick="revealWord('down',${JSON.stringify(c)})">
+      <div class="cw-ans-num">${c.num}</div>
+      <div class="cw-ans-word" id="cwaw_down_${c.num}" style="color:var(--rule);">${c.answer}</div>
+      <div class="cw-ans-clue">${c.clue}</div>
+    </div>`).join('');
+}
+
+function highlightWord(dir, clue) {
+  clearHighlight();
+  for (let i=0;i<clue.len;i++) {
+    const r = dir==='across'?clue.row:clue.row+i;
+    const c = dir==='across'?clue.col+i:clue.col;
+    document.getElementById(`cwc_${r}_${c}`)?.classList.add('word-highlight');
+    const lEl = document.getElementById(`cwl_${r}_${c}`);
+    if (lEl) lEl.classList.add('show');
+  }
+  document.getElementById(`cwai_${dir}_${clue.num}`)?.classList.add('active-ans');
+}
+
+function clearHighlight() {
+  if (cwRevealed) return;
+  document.querySelectorAll('.cw-cell.word-highlight').forEach(el=>el.classList.remove('word-highlight'));
+  document.querySelectorAll('.cw-ans-item').forEach(el=>el.classList.remove('active-ans'));
+  // re-hide letters unless revealed
+  document.querySelectorAll('.cw-letter.show:not(.highlight)').forEach(el=>el.classList.remove('show'));
+}
+
+function revealWord(dir, clue) {
+  for (let i=0;i<clue.len;i++) {
+    const r = dir==='across'?clue.row:clue.row+i;
+    const c = dir==='across'?clue.col+i:clue.col;
+    const lEl = document.getElementById(`cwl_${r}_${c}`);
+    if (lEl) { lEl.classList.add('show','highlight'); }
+    document.getElementById(`cwc_${r}_${c}`)?.classList.add('word-highlight');
+  }
+  document.getElementById(`cwaw_${dir}_${clue.num}`).style.color='var(--green)';
+  document.getElementById(`cwai_${dir}_${clue.num}`)?.classList.add('active-ans');
+}
+
+function revealAll() {
+  cwRevealed = true;
+  document.querySelectorAll('.cw-letter').forEach(el=>el.classList.add('show'));
+  document.querySelectorAll('.cw-ans-word').forEach(el=>el.style.color='var(--green)');
+  document.getElementById('cwRevealStatus').textContent='All answers revealed ✓';
+  launchConfetti();
+}
+
+function hideAll() {
+  cwRevealed = false;
+  document.querySelectorAll('.cw-letter').forEach(el=>el.classList.remove('show','highlight'));
+  document.querySelectorAll('.cw-cell').forEach(el=>el.classList.remove('word-highlight'));
+  document.querySelectorAll('.cw-ans-word').forEach(el=>el.style.color='var(--rule)');
+  document.querySelectorAll('.cw-ans-item').forEach(el=>el.classList.remove('active-ans'));
+  document.getElementById('cwRevealStatus').textContent='Letters hidden — hover a clue or click Reveal All';
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// WORD SEARCH DATA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const WS_WORDS = [
+  "IPAD","IPHONE","MACBOOK","IMAC","AIRPODS",
+  "APPLEWATCH","ICLOUD","FACETIME","AIRDROP","SAFARI",
+  "APPSTORE","SIRI","HOMEKIT","SHORTCUTS","PENCIL","CONTINUITY"
+];
+const WS_ROWS=16, WS_COLS=16;
+const DIRS8=[[0,1],[1,0],[0,-1],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
+const LETTERS='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const DIR_NAMES={'0,1':'→ Right','1,0':'↓ Down','0,-1':'← Left','-1,0':'↑ Up','1,1':'↘ Diag','1,-1':'↙ Diag','-1,1':'↗ Diag','-1,-1':'↖ Diag'};
+
+let wsGrid = Array.from({length:WS_ROWS},()=>Array(WS_COLS).fill(''));
+let wsPlacements = [];
+let wsRevealed = false;
+let activeWsWord = null;
+
+function canPlace(g,w,r,c,d){
+  for(let i=0;i<w.length;i++){
+    const nr=r+d[0]*i,nc=c+d[1]*i;
+    if(nr<0||nr>=WS_ROWS||nc<0||nc>=WS_COLS)return false;
+    if(g[nr][nc]&&g[nr][nc]!==w[i])return false;
+  }return true;
+}
+function doPlace(g,w,r,c,d){for(let i=0;i<w.length;i++)g[r+d[0]*i][c+d[1]*i]=w[i];}
+
+function generateWsGrid() {
+  wsGrid=Array.from({length:WS_ROWS},()=>Array(WS_COLS).fill(''));
+  wsPlacements=[];
+  const sorted=[...WS_WORDS].sort((a,b)=>b.length-a.length);
+  for(const word of sorted){
+    let placed=false,att=0;
+    while(!placed&&att++<300){
+      const d=DIRS8[~~(Math.random()*8)];
+      const r=~~(Math.random()*WS_ROWS),c=~~(Math.random()*WS_COLS);
+      if(canPlace(wsGrid,word,r,c,d)){doPlace(wsGrid,word,r,c,d);wsPlacements.push({word,r,c,d});placed=true;}
+    }
+    if(!placed){
+      for(let r=0;r<WS_ROWS&&!placed;r++)
+        for(let c=0;c<=WS_COLS-word.length&&!placed;c++)
+          if(canPlace(wsGrid,word,r,c,[0,1])){doPlace(wsGrid,word,r,c,[0,1]);wsPlacements.push({word,r,c,d:[0,1]});placed=true;}
+    }
+  }
+  for(let r=0;r<WS_ROWS;r++)for(let c=0;c<WS_COLS;c++)if(!wsGrid[r][c])wsGrid[r][c]=LETTERS[~~(Math.random()*26)];
+}
+
+// Get all cells for a word
+function getWordCells(p){
+  const cells=[];
+  for(let i=0;i<p.word.length;i++) cells.push({r:p.r+p.d[0]*i,c:p.c+p.d[1]*i});
+  return cells;
+}
+
+function buildWsGrid() {
+  const container = document.getElementById('wsGrid');
+  let html = '<div>';
+  for(let r=0;r<WS_ROWS;r++){
+    html+='<div class="ws-row-a">';
+    for(let c=0;c<WS_COLS;c++){
+      html+=`<div class="ws-cell-a hidden-ans" id="wsc_${r}_${c}">${wsGrid[r][c]}</div>`;
+    }
+    html+='</div>';
+  }
+  html+='</div>';
+  container.innerHTML=html;
+  // show all letters but not colored yet
+  document.querySelectorAll('.ws-cell-a').forEach(el=>{
+    el.classList.remove('hidden-ans');
+    el.style.color=wsRevealed?'':wsGrid[parseInt(el.id.split('_')[1])][parseInt(el.id.split('_')[2])] ? 'var(--ink)' : '';
+  });
+  // neutral display
+  document.querySelectorAll('.ws-cell-a').forEach(el=>el.style.color='#BBBBB0');
+}
+
+function buildWsWordItems() {
+  const container=document.getElementById('wsWordItems');
+  container.innerHTML=WS_WORDS.map((w,i)=>{
+    const p=wsPlacements.find(pl=>pl.word===w);
+    const dir=p?DIR_NAMES[`${p.d[0]},${p.d[1]}`]:'?';
+    return `<div class="ws-word-item" id="wswi_${w}"
+      onclick="toggleWsWord('${w}',${i})"
+      onmouseenter="highlightWsWord('${w}',${i})"
+      onmouseleave="if(activeWsWord!=='${w}')dimWsWord('${w}',${i})">
+      <div class="ws-word-label">${w}</div>
+      <div class="ws-word-dir" id="wsdir_${w}" style="visibility:hidden;">${dir}</div>
+    </div>`;
+  }).join('');
+}
+
+function highlightWsWord(word, idx) {
+  const p=wsPlacements.find(pl=>pl.word===word);
+  if(!p)return;
+  getWordCells(p).forEach(({r,c})=>{
+    const el=document.getElementById(`wsc_${r}_${c}`);
+    if(el){el.className=`ws-cell-a found-${idx}`;el.style.transform='scale(1.15)';}
+  });
+}
+
+function dimWsWord(word, idx) {
+  const p=wsPlacements.find(pl=>pl.word===word);
+  if(!p)return;
+  if(wsRevealed){
+    // stay colored, just remove scale
+    getWordCells(p).forEach(({r,c})=>{
+      const el=document.getElementById(`wsc_${r}_${c}`);
+      if(el) el.style.transform='';
+    });
+  } else {
+    getWordCells(p).forEach(({r,c})=>{
+      const el=document.getElementById(`wsc_${r}_${c}`);
+      if(el){el.className='ws-cell-a';el.style.color='#BBBBB0';el.style.transform='';}
+    });
+  }
+}
+
+function toggleWsWord(word, idx) {
+  const p=wsPlacements.find(pl=>pl.word===word);
+  if(!p)return;
+  const item=document.getElementById(`wswi_${word}`);
+  const dirEl=document.getElementById(`wsdir_${word}`);
+  const isActive=item.classList.contains('active-ws');
+  if(isActive){
+    item.classList.remove('active-ws');
+    dirEl.style.visibility='hidden';
+    activeWsWord=null;
+    dimWsWord(word,idx);
+  } else {
+    // deactivate previous
+    if(activeWsWord){
+      const prevIdx=WS_WORDS.indexOf(activeWsWord);
+      document.getElementById(`wswi_${activeWsWord}`)?.classList.remove('active-ws');
+      document.getElementById(`wsdir_${activeWsWord}`)?.style.setProperty('visibility','hidden');
+      dimWsWord(activeWsWord,prevIdx);
+    }
+    activeWsWord=word;
+    item.classList.add('active-ws');
+    dirEl.style.visibility='visible';
+    highlightWsWord(word,idx);
+  }
+}
+
+function wsRevealAll() {
+  wsRevealed=true;
+  activeWsWord=null;
+  WS_WORDS.forEach((w,i)=>{
+    const p=wsPlacements.find(pl=>pl.word===w);
+    if(!p)return;
+    getWordCells(p).forEach(({r,c})=>{
+      const el=document.getElementById(`wsc_${r}_${c}`);
+      if(el){el.className=`ws-cell-a found-${i}`;el.style.transform='';}
+    });
+    document.getElementById(`wswi_${w}`)?.classList.add('active-ws');
+    const dirEl=document.getElementById(`wsdir_${w}`);
+    if(dirEl)dirEl.style.visibility='visible';
+  });
+  // dim non-word cells
+  document.querySelectorAll('.ws-cell-a:not([class*="found"])').forEach(el=>{
+    el.style.color='#DDDDD5';
+  });
+  document.getElementById('wsRevealStatus').textContent='All 16 words revealed ✓';
+  launchConfetti();
+}
+
+function wsHideAll() {
+  wsRevealed=false;
+  activeWsWord=null;
+  document.querySelectorAll('.ws-cell-a').forEach(el=>{
+    el.className='ws-cell-a';el.style.color='#BBBBB0';el.style.transform='';
+  });
+  document.querySelectorAll('.ws-word-item').forEach(el=>el.classList.remove('active-ws'));
+  document.querySelectorAll('.ws-word-dir').forEach(el=>el.style.visibility='hidden');
+  document.getElementById('wsRevealStatus').textContent='All words hidden — click a word or Reveal All';
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PRINTABLE SECTION
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function buildPrintCwGrid() {
+  const table=document.getElementById('pCwTable');
+  for(let r=0;r<CW_SIZE;r++){
+    const tr=document.createElement('tr');
+    for(let c=0;c<CW_SIZE;c++){
+      const td=document.createElement('td');
+      const ch=cwSol[r][c];
+      if(ch==='.'){
+        td.className='p-cw-cell pblack';
+        td.innerHTML='&nbsp;';
+      } else {
+        td.className='p-cw-cell';
+        const num=cwNums[`${r},${c}`];
+        td.innerHTML=(num?`<div class="p-cw-num">${num}</div>`:'')+ ch;
+      }
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
+}
+
+function buildPrintCwClues() {
+  const ac=document.getElementById('pCwAcross');
+  const dc=document.getElementById('pCwDown');
+  ac.innerHTML=CW_CLUES.across.map(c=>
+    `<div class="print-word-entry">
+      <span class="print-word-num">${c.num}.</span>
+      <span class="print-ans-word">${c.answer}</span>
+      <span class="print-clue-text">${c.clue}</span>
+    </div>`).join('');
+  dc.innerHTML=CW_CLUES.down.map(c=>
+    `<div class="print-word-entry">
+      <span class="print-word-num">${c.num}.</span>
+      <span class="print-ans-word">${c.answer}</span>
+      <span class="print-clue-text">${c.clue}</span>
+    </div>`).join('');
+}
+
+function buildPrintWsGrid() {
+  const container=document.getElementById('pWsGrid');
+  const WORD_COLORS=['#F4603A','#1B4FD8','#1D9E6B','#6C3DD4','#E09B00','#0B7A6E','#C0392B','#2C3E8C','#1A6B4A','#7D6608','#6C3483','#1A5276','#7E5109','#148F77','#2E4057','#8E44AD'];
+  // Build a color map for cells
+  const colorMap={};
+  wsPlacements.forEach((p,i)=>{
+    getWordCells(p).forEach(({r,c})=>{ colorMap[`${r},${c}`]=WORD_COLORS[i]; });
+  });
+  let html='';
+  for(let r=0;r<WS_ROWS;r++){
+    html+='<div class="p-ws-row">';
+    for(let c=0;c<WS_COLS;c++){
+      const col=colorMap[`${r},${c}`];
+      html+=`<div class="p-ws-cell" style="${col?`color:${col};font-weight:900;`:''}">${wsGrid[r][c]}</div>`;
+    }
+    html+='</div>';
+  }
+  container.innerHTML=html;
+}
+
+function buildPrintWsWords() {
+  const container=document.getElementById('pWsWords');
+  const WORD_COLORS=['#F4603A','#1B4FD8','#1D9E6B','#6C3DD4','#E09B00','#0B7A6E','#C0392B','#2C3E8C','#1A6B4A','#7D6608','#6C3483','#1A5276','#7E5109','#148F77','#2E4057','#8E44AD'];
+  container.innerHTML=WS_WORDS.map((w,i)=>{
+    const p=wsPlacements.find(pl=>pl.word===w);
+    const dir=p?DIR_NAMES[`${p.d[0]},${p.d[1]}`]:'?';
+    return `<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;font-size:12px;">
+      <div style="width:10px;height:10px;border-radius:50%;background:${WORD_COLORS[i]};flex-shrink:0;"></div>
+      <span style="font-family:Georgia,'Times New Roman',serif;color:${WORD_COLORS[i]};font-size:13px;">${w}</span>
+      <span style="color:var(--gray);font-size:11px;font-weight:700;">${dir}</span>
+    </div>`;
+  }).join('');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CONFETTI
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function launchConfetti(){
+  const wrap=document.getElementById('confettiWrap');
+  wrap.innerHTML='';wrap.classList.add('show');
+  const cols=['#1B4FD8','#F4603A','#FFD60A','#6C3DD4','#1D9E6B'];
+  for(let i=0;i<60;i++){
+    const c=document.createElement('div');c.className='confetto';
+    c.style.cssText=`left:${Math.random()*100}%;width:${6+Math.random()*9}px;height:${6+Math.random()*9}px;background:${cols[~~(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.8}s;`;
+    wrap.appendChild(c);
+  }
+  setTimeout(()=>{wrap.classList.remove('show');wrap.innerHTML='';},3500);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INIT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+buildCwGrid();
+buildCwClues();
+generateWsGrid();
+buildWsGrid();
+buildWsWordItems();
+buildPrintCwGrid();
+buildPrintCwClues();
+buildPrintWsGrid();
+buildPrintWsWords();
+</script>
+</body>
+</html>

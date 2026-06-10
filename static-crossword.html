@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Apple Ecosystem Games — Printable · ELEVATE</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#1A1A2E;--blue:#1B4FD8;--coral:#F4603A;--purp:#6C3DD4;
+  --green:#1D9E6B;--gray:#6B6B7B;--rule:#E8E4DC;--cream:#FFFCF5;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--cream);color:var(--ink);}
+.wrap{max-width:800px;margin:0 auto;padding:36px 28px 60px;}
+
+/* HEADER */
+.p-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:20px;
+}
+.p-title{font-family:Georgia,'Times New Roman',serif;font-size:34px;color:var(--ink);line-height:1;}
+.p-title .a1{color:var(--blue);} .p-title .a2{color:var(--coral);}
+.p-meta{text-align:right;font-size:12px;color:var(--gray);line-height:1.9;}
+.p-meta strong{color:var(--ink);font-weight:800;}
+.name-row{display:flex;gap:24px;margin-bottom:24px;}
+.nf{flex:1;display:flex;align-items:flex-end;gap:6px;font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;}
+.nf .nl{flex:1;border-bottom:1.5px solid var(--ink);height:20px;}
+
+/* SECTION LABELS */
+.sec-label{
+  font-family:Georgia,'Times New Roman',serif;font-size:22px;margin-bottom:4px;
+}
+.sec-instruct{font-size:12px;font-weight:600;color:var(--gray);margin-bottom:14px;line-height:1.5;}
+
+/* CROSSWORD GRID */
+.cw-layout{display:flex;gap:24px;align-items:flex-start;margin-bottom:36px;}
+.cw-grid-wrap{flex-shrink:0;}
+.cw-table{border-collapse:collapse;}
+.cw-cell{
+  width:24px;height:24px;
+  position:relative;
+  border:1px solid #C8C0B0;
+  background:#fff;
+}
+.cw-cell.black{background:var(--ink);border-color:var(--ink);}
+.cw-cell-num{
+  position:absolute;top:1px;left:1.5px;
+  font-size:6px;font-weight:800;color:var(--gray);line-height:1;
+}
+
+/* CLUES */
+.clues-wrap{flex:1;}
+.clue-col-head{
+  font-family:Georgia,'Times New Roman',serif;font-size:14px;color:var(--blue);
+  margin-bottom:6px;margin-top:10px;
+}
+.clue-col-head:first-child{margin-top:0;}
+.clue-item{
+  display:flex;gap:6px;margin-bottom:4px;font-size:11px;line-height:1.4;
+}
+.clue-n{font-weight:800;color:var(--ink);min-width:18px;flex-shrink:0;}
+.clue-t{font-weight:600;color:var(--gray);}
+
+/* DIVIDER */
+hr{border:none;border-top:1.5px dashed var(--rule);margin:28px 0;}
+
+/* WORD SEARCH */
+.ws-layout{display:flex;gap:28px;align-items:flex-start;}
+.ws-grid-print{flex-shrink:0;}
+.ws-row-p{display:flex;}
+.ws-cell-p{
+  width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:Georgia,'Times New Roman',serif;font-size:12px;color:var(--ink);
+}
+.wb-print{flex:1;}
+.wb-head{font-family:Georgia,'Times New Roman',serif;font-size:16px;color:var(--coral);margin-bottom:10px;}
+.wb-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;}
+.wb-word{
+  font-size:12px;font-weight:800;color:var(--ink);
+  padding:3px 0;border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:6px;
+}
+.wb-word::before{content:'□';color:var(--rule);font-size:14px;}
+
+/* FOOTER */
+.p-footer{
+  margin-top:36px;padding-top:14px;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;font-size:11px;color:var(--gray);
+}
+
+/* PRINT */
+@media print{
+  .no-print{display:none!important;}
+  body{background:#fff;}
+  .wrap{padding:16px 20px;}
+  .page-break{page-break-after:always;}
+}
+.print-btn{
+  display:block;margin:28px auto 0;padding:12px 32px;
+  background:var(--blue);color:#fff;border:none;border-radius:100px;
+  font-family:Georgia,'Times New Roman',serif;font-size:15px;cursor:pointer;
+  transition:background 0.15s;
+}
+.print-btn:hover{background:#133FB0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="p-header">
+  <div>
+    <div style="font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;">ELEVATE Conference · Weekly Games</div>
+    <div class="p-title"><span class="a1">Apple </span><span class="a2">Ecosystem</span><br/>Puzzle Pack.</div>
+  </div>
+  <div class="p-meta">
+    <strong>Crossword + Word Search</strong><br/>
+    Issue #[XX] &nbsp;·&nbsp; [Date]<br/>
+    16 Apple Terms
+  </div>
+</div>
+
+<div class="name-row">
+  <div class="nf">Name<div class="nl"></div></div>
+  <div class="nf">Role<div class="nl"></div></div>
+  <div class="nf">Time<div class="nl"></div></div>
+</div>
+
+<!-- ══ CROSSWORD ══ -->
+<div class="sec-label" style="color:var(--blue);">Crossword ✏️</div>
+<div class="sec-instruct">Fill in the Apple Ecosystem terms using the clues below. Numbers in cells match the clue list.</div>
+
+<div class="cw-layout">
+  <!-- GRID -->
+  <div class="cw-grid-wrap">
+    <table class="cw-table" id="cwTable"></table>
+  </div>
+  <!-- CLUES -->
+  <div class="clues-wrap">
+    <div class="clue-col-head">Across →</div>
+    <div class="clue-item"><span class="clue-n">1.</span><span class="clue-t">Apple's laptop line powered by Apple Silicon</span></div>
+    <div class="clue-item"><span class="clue-n">5.</span><span class="clue-t">Apple's cloud storage and sync service</span></div>
+    <div class="clue-item"><span class="clue-n">7.</span><span class="clue-t">Apple's video and audio calling app</span></div>
+    <div class="clue-item"><span class="clue-n">9.</span><span class="clue-t">Wireless file-sharing between nearby Apple devices</span></div>
+    <div class="clue-item"><span class="clue-n">11.</span><span class="clue-t">Where you download apps on Apple devices</span></div>
+    <div class="clue-item"><span class="clue-n">12.</span><span class="clue-t">Apple's native web browser</span></div>
+    <div class="clue-item"><span class="clue-n">13.</span><span class="clue-t">Automation app that connects your apps</span></div>
+    <div class="clue-item"><span class="clue-n">15.</span><span class="clue-t">Feature suite linking iPhone and Mac</span></div>
+
+    <div class="clue-col-head">Down ↓</div>
+    <div class="clue-item"><span class="clue-n">1.</span><span class="clue-t">Apple's tablet — cornerstone of K-12 classrooms</span></div>
+    <div class="clue-item"><span class="clue-n">2.</span><span class="clue-t">Apple's voice assistant, now with Apple Intelligence</span></div>
+    <div class="clue-item"><span class="clue-n">3.</span><span class="clue-t">Apple's all-in-one desktop computer</span></div>
+    <div class="clue-item"><span class="clue-n">4.</span><span class="clue-t">Apple's wireless earbuds family</span></div>
+    <div class="clue-item"><span class="clue-n">6.</span><span class="clue-t">Apple's flagship smartphone</span></div>
+    <div class="clue-item"><span class="clue-n">8.</span><span class="clue-t">Apple's streaming device and gaming platform</span></div>
+    <div class="clue-item"><span class="clue-n">10.</span><span class="clue-t">Apple's smart home platform</span></div>
+    <div class="clue-item"><span class="clue-n">11.</span><span class="clue-t">Start on one device, continue on another</span></div>
+    <div class="clue-item"><span class="clue-n">14.</span><span class="clue-t">Apple's stylus for iPad</span></div>
+  </div>
+</div>
+
+<hr/>
+
+<!-- ══ WORD SEARCH ══ -->
+<div class="sec-label" style="color:var(--coral);">Word Search 🔍</div>
+<div class="sec-instruct">Find all 16 Apple Ecosystem terms. Words go forward, backward, up, down, and diagonal. Circle each one you find.</div>
+
+<div class="ws-layout">
+  <div class="ws-grid-print" id="wsGridPrint"></div>
+  <div class="wb-print">
+    <div class="wb-head">Word Bank</div>
+    <div class="wb-grid">
+      <div class="wb-word">IPAD</div>
+      <div class="wb-word">IPHONE</div>
+      <div class="wb-word">MACBOOK</div>
+      <div class="wb-word">IMAC</div>
+      <div class="wb-word">AIRPODS</div>
+      <div class="wb-word">APPLEWATCH</div>
+      <div class="wb-word">ICLOUD</div>
+      <div class="wb-word">FACETIME</div>
+      <div class="wb-word">AIRDROP</div>
+      <div class="wb-word">SAFARI</div>
+      <div class="wb-word">APPSTORE</div>
+      <div class="wb-word">SIRI</div>
+      <div class="wb-word">HOMEKIT</div>
+      <div class="wb-word">SHORTCUTS</div>
+      <div class="wb-word">PENCIL</div>
+      <div class="wb-word">CONTINUITY</div>
+    </div>
+  </div>
+</div>
+
+<div class="p-footer">
+  <span><strong>ELEVATE</strong> · Apple U.S. Education Sales · Confidential</span>
+  <span>Log in. Level up. Leave inspired.</span>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨 &nbsp; Print This Sheet</button>
+
+</div>
+
+<script>
+// ── BUILD CROSSWORD GRID ──
+const SIZE = 15;
+const sol = Array.from({length:SIZE},()=>Array(SIZE).fill('.'));
+function pa(r,c,w){for(let i=0;i<w.length;i++)sol[r][c+i]=w[i];}
+function pd(c,r,w){for(let i=0;i<w.length;i++)sol[r+i][c]=w[i];}
+pa(0,3,"MACBOOK"); pd(0,0,"IPAD"); pd(1,0,"SIRI"); pd(2,0,"IMAC");
+pa(2,5,"ICLOUD"); pd(11,0,"AIRPODS"); pa(4,0,"FACETIME"); pd(12,0,"IPHONE");
+pa(6,2,"AIRDROP"); pd(8,4,"APPLETV"); pa(8,1,"APPSTORE"); pd(13,4,"HOMEKIT");
+pa(12,0,"SHORTCUTS"); pa(14,1,"CONTINUITY"); pd(14,4,"PENCIL"); pd(11,8,"HANDOFF");
+pa(9,5,"SAFARI");
+
+const cellNums = {
+  '0,3':'1','0,0':'1d','0,1':'2','0,2':'3',
+  '2,5':'5','0,11':'4','4,0':'7','0,12':'6',
+  '6,2':'9','4,8':'8','8,1':'11','4,13':'10',
+  '12,0':'13','14,1':'15','4,14':'14','8,11':'11d','9,5':'12'
+};
+// clean number map: first occurrence wins, shared cell keeps across num
+const numMap = {};
+// Across starters
+[{r:0,c:3,n:'1'},{r:2,c:5,n:'5'},{r:4,c:0,n:'7'},{r:6,c:2,n:'9'},
+ {r:8,c:1,n:'11'},{r:9,c:5,n:'12'},{r:12,c:0,n:'13'},{r:14,c:1,n:'15'}]
+  .forEach(({r,c,n})=>numMap[`${r},${c}`]=n);
+// Down starters (only if cell not already numbered)
+[{r:0,c:0,n:'1'},{r:0,c:1,n:'2'},{r:0,c:2,n:'3'},{r:0,c:11,n:'4'},
+ {r:0,c:12,n:'6'},{r:4,c:8,n:'8'},{r:4,c:13,n:'10'},{r:4,c:14,n:'14'},
+ {r:8,c:11,n:'11↓'}]
+  .forEach(({r,c,n})=>{ if(!numMap[`${r},${c}`]) numMap[`${r},${c}`]=n; });
+
+const table = document.getElementById('cwTable');
+for(let r=0;r<SIZE;r++){
+  const tr=document.createElement('tr');
+  for(let c=0;c<SIZE;c++){
+    const td=document.createElement('td');
+    td.className='cw-cell'+(sol[r][c]==='.'?' black':'');
+    if(sol[r][c]!=='.'){
+      const num=numMap[`${r},${c}`];
+      if(num&&!num.includes('↓'))td.innerHTML=`<div class="cw-cell-num">${num}</div>`;
+    }
+    tr.appendChild(td);
+  }
+  table.appendChild(tr);
+}
+
+// ── BUILD WORD SEARCH GRID ──
+const WS_ROWS=16,WS_COLS=16;
+const WORDS=["IPAD","IPHONE","MACBOOK","IMAC","AIRPODS","APPLEWATCH","ICLOUD","FACETIME","AIRDROP","SAFARI","APPSTORE","SIRI","HOMEKIT","SHORTCUTS","PENCIL","CONTINUITY"];
+const DIRS=[[0,1],[1,0],[0,-1],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]];
+const LETTERS='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+let wsg=Array.from({length:WS_ROWS},()=>Array(WS_COLS).fill(''));
+
+function canP(g,w,r,c,d){
+  for(let i=0;i<w.length;i++){
+    const nr=r+d[0]*i,nc=c+d[1]*i;
+    if(nr<0||nr>=WS_ROWS||nc<0||nc>=WS_COLS)return false;
+    if(g[nr][nc]&&g[nr][nc]!==w[i])return false;
+  }return true;
+}
+function doP(g,w,r,c,d){for(let i=0;i<w.length;i++)g[r+d[0]*i][c+d[1]*i]=w[i];}
+
+[...WORDS].sort((a,b)=>b.length-a.length).forEach(word=>{
+  let placed=false,att=0;
+  while(!placed&&att++<300){
+    const d=DIRS[~~(Math.random()*8)];
+    const r=~~(Math.random()*WS_ROWS),c=~~(Math.random()*WS_COLS);
+    if(canP(wsg,word,r,c,d)){doP(wsg,word,r,c,d);placed=true;}
+  }
+  if(!placed){
+    for(let r=0;r<WS_ROWS&&!placed;r++)
+      for(let c=0;c<=WS_COLS-word.length&&!placed;c++)
+        if(canP(wsg,word,r,c,[0,1])){doP(wsg,word,r,c,[0,1]);placed=true;}
+  }
+});
+for(let r=0;r<WS_ROWS;r++)for(let c=0;c<WS_COLS;c++)if(!wsg[r][c])wsg[r][c]=LETTERS[~~(Math.random()*26)];
+
+const gp=document.getElementById('wsGridPrint');
+for(let r=0;r<WS_ROWS;r++){
+  const row=document.createElement('div');row.className='ws-row-p';
+  for(let c=0;c<WS_COLS;c++){
+    const cell=document.createElement('div');cell.className='ws-cell-p';
+    cell.textContent=wsg[r][c];row.appendChild(cell);
+  }
+  gp.appendChild(row);
+}
+</script>
+</body>
+</html>

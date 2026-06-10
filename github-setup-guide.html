@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How to Host on GitHub Pages · ELEVATE</title>
+
+<style>
+:root{
+  --ink:#1A1A2E; --white:#fff; --cream:#FFFCF5;
+  --blue:#1B4FD8; --blue-lt:#EEF3FF; --blue-md:#C5D7FF;
+  --coral:#F4603A; --coral-lt:#FFF0EC;
+  --sun:#FFD60A; --sun-lt:#FFFBE6;
+  --green:#1D9E6B; --green-lt:#E4F8F0; --green-md:#A8E6CC;
+  --purp:#6C3DD4; --purp-lt:#F2EDFF;
+  --gray:#6B6B7B; --rule:#E8E4DC;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;}
+.page{max-width:780px;margin:0 auto;padding:44px 28px 80px;}
+
+/* HEADER */
+.hdr-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--blue);color:var(--white);
+  font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+  padding:5px 14px;border-radius:100px;margin-bottom:14px;
+  box-shadow:2px 2px 0 var(--blue-md);
+}
+.hdr-title{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:46px;line-height:1.0;margin-bottom:10px;
+}
+.hdr-title .a1{color:var(--blue);}
+.hdr-title .a2{color:var(--coral);}
+.hdr-desc{
+  font-size:15px;font-weight:600;color:var(--gray);
+  line-height:1.65;max-width:560px;margin-bottom:32px;
+}
+.hdr-desc strong{color:var(--ink);}
+
+/* WHAT IS GITHUB */
+.info-box{
+  background:var(--blue-lt);border:1.5px solid var(--blue-md);
+  border-radius:16px;padding:20px 24px;margin-bottom:36px;
+  display:flex;gap:16px;align-items:flex-start;
+}
+.info-icon{font-size:28px;flex-shrink:0;margin-top:2px;}
+.info-text p{font-size:14px;font-weight:600;color:var(--ink);line-height:1.65;}
+.info-text strong{color:var(--blue);}
+
+/* WHAT YOU NEED */
+.need-box{
+  background:var(--sun-lt);border:1.5px solid #FFE680;
+  border-radius:16px;padding:18px 22px;margin-bottom:36px;
+}
+.need-title{font-family:Georgia,'Times New Roman',serif;font-size:18px;color:var(--ink);margin-bottom:10px;}
+.need-item{
+  display:flex;align-items:center;gap:10px;
+  font-size:14px;font-weight:600;color:var(--ink);
+  margin-bottom:8px;
+}
+.need-check{
+  width:20px;height:20px;border-radius:50%;background:var(--sun);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;flex-shrink:0;
+}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0;}
+.step{
+  display:flex;gap:20px;
+  padding-bottom:32px;
+  position:relative;
+}
+.step:not(:last-child)::before{
+  content:'';
+  position:absolute;
+  left:19px;top:40px;
+  width:2px;
+  bottom:0;
+  background:var(--rule);
+}
+.step-num{
+  width:40px;height:40px;border-radius:50%;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:Georgia,'Times New Roman',serif;font-size:18px;
+  color:var(--white);
+  position:relative;z-index:1;
+}
+.step-body{flex:1;padding-top:6px;}
+.step-title{font-family:Georgia,'Times New Roman',serif;font-size:20px;color:var(--ink);margin-bottom:6px;}
+.step-desc{font-size:14px;font-weight:600;color:var(--gray);line-height:1.65;margin-bottom:12px;}
+.step-desc strong{color:var(--ink);}
+
+/* SCREENSHOT MOCKUP */
+.screen-mock{
+  background:var(--white);border:1.5px solid var(--rule);
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 3px 0 var(--rule),0 6px 20px rgba(0,0,0,0.06);
+  margin-bottom:8px;
+}
+.screen-bar{
+  background:#F0EDE8;padding:10px 14px;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid var(--rule);
+}
+.bar-dots{display:flex;gap:5px;}
+.bar-dot{width:10px;height:10px;border-radius:50%;}
+.bar-url{
+  flex:1;background:var(--white);border-radius:6px;
+  padding:4px 10px;font-size:11px;font-weight:700;
+  color:var(--gray);border:1px solid var(--rule);
+}
+.screen-body{padding:16px 20px;}
+.screen-row{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:10px;
+  font-size:13px;font-weight:700;color:var(--ink);
+  margin-bottom:6px;border:1.5px solid var(--rule);
+}
+.screen-row.active{background:var(--green-lt);border-color:var(--green-md);color:var(--green);}
+.screen-row.cta-row{background:var(--blue);border-color:var(--blue);color:var(--white);}
+.row-icon{font-size:16px;flex-shrink:0;}
+
+/* CODE BLOCK */
+.code-block{
+  background:var(--ink);border-radius:12px;
+  padding:16px 20px;margin:8px 0;
+  font-family:'Courier New',monospace;
+  font-size:13px;color:#A0E0C8;
+  line-height:1.8;
+  overflow-x:auto;
+}
+.code-block .comment{color:#666;}
+.code-block .highlight{color:var(--sun);}
+.code-block .url{color:#A0C8FF;text-decoration:underline;}
+
+/* TIP BOXES */
+.tip{
+  display:flex;gap:12px;align-items:flex-start;
+  border-radius:12px;padding:14px 18px;margin:8px 0;
+}
+.tip.green{background:var(--green-lt);border:1.5px solid var(--green-md);}
+.tip.yellow{background:var(--sun-lt);border:1.5px solid #FFE680;}
+.tip.blue{background:var(--blue-lt);border:1.5px solid var(--blue-md);}
+.tip-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.tip-text{font-size:13px;font-weight:700;color:var(--ink);line-height:1.55;}
+.tip-text strong{color:var(--green);}
+.tip.yellow .tip-text strong{color:#7A5A00;}
+.tip.blue .tip-text strong{color:var(--blue);}
+
+/* FILE LIST */
+.file-list{
+  background:var(--white);border:1.5px solid var(--rule);
+  border-radius:14px;overflow:hidden;margin:8px 0;
+}
+.file-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 16px;border-bottom:1px solid var(--rule);
+  font-size:13px;
+}
+.file-item:last-child{border-bottom:none;}
+.file-icon{font-size:16px;flex-shrink:0;}
+.file-name{font-family:'Courier New',monospace;font-weight:700;color:var(--blue);flex:1;}
+.file-desc{font-size:11px;font-weight:600;color:var(--gray);}
+.file-item.key-file{background:var(--green-lt);}
+.file-item.key-file .file-name{color:var(--green);}
+
+/* FINAL URL BOX */
+.url-box{
+  background:var(--ink);border-radius:16px;padding:22px 24px;margin-top:12px;
+}
+.url-label{font-size:11px;font-weight:800;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.url-value{
+  font-family:'Courier New',monospace;font-size:16px;font-weight:700;
+  color:var(--sun);margin-bottom:10px;word-break:break-all;
+}
+.url-note{font-size:12px;font-weight:600;color:rgba(255,255,255,0.45);line-height:1.55;}
+
+/* NEWSLETTER SECTION */
+.email-section{
+  background:var(--coral-lt);border:1.5px solid #FFBFAD;
+  border-radius:16px;padding:22px 24px;margin-top:36px;
+}
+.email-sec-title{font-family:Georgia,'Times New Roman',serif;font-size:20px;color:var(--coral);margin-bottom:8px;}
+.email-sec-desc{font-size:14px;font-weight:600;color:var(--ink);line-height:1.65;margin-bottom:16px;}
+.email-copy-box{
+  background:var(--white);border-radius:12px;border:1.5px solid #FFBFAD;
+  padding:16px 18px;
+}
+.email-copy-label{font-size:10px;font-weight:800;color:var(--coral);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.email-copy-text{font-size:14px;font-weight:700;color:var(--ink);line-height:1.7;}
+.email-copy-text .placeholder{color:var(--blue);font-style:italic;}
+
+/* FAQ */
+.faq{margin-top:36px;}
+.faq-title{font-family:Georgia,'Times New Roman',serif;font-size:22px;color:var(--ink);margin-bottom:16px;}
+.faq-item{
+  border:1.5px solid var(--rule);border-radius:14px;
+  padding:16px 20px;margin-bottom:10px;
+  background:var(--white);
+}
+.faq-q{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:6px;}
+.faq-a{font-size:13px;font-weight:600;color:var(--gray);line-height:1.6;}
+.faq-a strong{color:var(--ink);}
+.faq-a a{color:var(--blue);}
+
+@media(max-width:600px){
+  .hdr-title{font-size:34px;}
+  .page{padding:28px 18px 60px;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hdr-tag">📋 Setup Guide</div>
+  <div class="hdr-title">
+    How to Host on<br/>
+    <span class="a1">GitHub </span><span class="a2">Pages.</span>
+  </div>
+  <p class="hdr-desc">
+    A free, permanent URL for all your ELEVATE games — no technical background needed.
+    <strong>Estimated time: 10–15 minutes.</strong> You'll only need to do this once.
+  </p>
+
+  <!-- WHAT IS GITHUB -->
+  <div class="info-box">
+    <div class="info-icon">💡</div>
+    <div class="info-text">
+      <p><strong>What is GitHub Pages?</strong> GitHub is a free platform where developers store files. GitHub Pages is a feature that turns a folder of HTML files into a real, live website with its own URL — completely free, no credit card, no server setup. Your games will be available at a permanent link like <strong>yourusername.github.io/elevate-games</strong> that you can drop into any email or Webex message.</p>
+    </div>
+  </div>
+
+  <!-- WHAT YOU NEED -->
+  <div class="need-box">
+    <div class="need-title">🧰 What You Need Before Starting</div>
+    <div class="need-item"><div class="need-check">✓</div>A free GitHub account — sign up at <strong>github.com</strong></div>
+    <div class="need-item"><div class="need-check">✓</div>The game files downloaded from this conversation (the HTML files)</div>
+    <div class="need-item"><div class="need-check">✓</div>A web browser — Chrome or Safari works great</div>
+    <div class="need-item"><div class="need-check">✓</div>About 10–15 minutes of uninterrupted time</div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps">
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-num" style="background:var(--blue);">1</div>
+      <div class="step-body">
+        <div class="step-title">Create a free GitHub account</div>
+        <p class="step-desc">Go to <strong>github.com</strong> and click <strong>Sign Up</strong>. Choose a username — this will appear in your game URL, so keep it clean and professional (e.g., <em>brandonosborne-elevate</em> or your Apple ID first initial + last name). Use your work email if preferred.</p>
+        <div class="screen-mock">
+          <div class="screen-bar">
+            <div class="bar-dots">
+              <div class="bar-dot" style="background:#FF5F56;"></div>
+              <div class="bar-dot" style="background:#FFBD2E;"></div>
+              <div class="bar-dot" style="background:#27C93F;"></div>
+            </div>
+            <div class="bar-url">github.com/signup</div>
+          </div>
+          <div class="screen-body">
+            <div class="screen-row"><span class="row-icon">📧</span> Enter your email address</div>
+            <div class="screen-row"><span class="row-icon">🔑</span> Create a password</div>
+            <div class="screen-row active"><span class="row-icon">👤</span> Choose a username (e.g. brandonosborne-elevate)</div>
+            <div class="screen-row cta-row"><span class="row-icon">✅</span> Click "Create Account"</div>
+          </div>
+        </div>
+        <div class="tip green">
+          <div class="tip-icon">✅</div>
+          <div class="tip-text"><strong>Already have a GitHub account?</strong> Skip this step and go straight to Step 2.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-num" style="background:var(--coral);">2</div>
+      <div class="step-body">
+        <div class="step-title">Create a new repository</div>
+        <p class="step-desc">A repository is just a folder on GitHub. Once logged in, click the <strong>green "New" button</strong> in the top-left corner (or go to <strong>github.com/new</strong>).</p>
+        <div class="screen-mock">
+          <div class="screen-bar">
+            <div class="bar-dots">
+              <div class="bar-dot" style="background:#FF5F56;"></div>
+              <div class="bar-dot" style="background:#FFBD2E;"></div>
+              <div class="bar-dot" style="background:#27C93F;"></div>
+            </div>
+            <div class="bar-url">github.com/new</div>
+          </div>
+          <div class="screen-body">
+            <div class="screen-row active"><span class="row-icon">📁</span> Repository name: <strong>elevate-games</strong></div>
+            <div class="screen-row"><span class="row-icon">👁️</span> Visibility: select <strong>Public</strong></div>
+            <div class="screen-row"><span class="row-icon">📄</span> Check "Add a README file"</div>
+            <div class="screen-row cta-row"><span class="row-icon">🚀</span> Click "Create repository"</div>
+          </div>
+        </div>
+        <div class="tip yellow">
+          <div class="tip-icon">⚠️</div>
+          <div class="tip-text"><strong>Important:</strong> The repository must be set to <strong>Public</strong> for GitHub Pages to work on the free plan. Your game files are not sensitive — they're HTML pages anyone could view.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-num" style="background:var(--purp);">3</div>
+      <div class="step-body">
+        <div class="step-title">Upload your game files</div>
+        <p class="step-desc">Inside your new repository, click <strong>"uploading an existing file"</strong> (the link appears in the empty repo view) or click <strong>Add file → Upload files</strong> in the toolbar.</p>
+
+        <p class="step-desc" style="margin-top:8px;">Drag and drop all of these files into the upload area — or click "choose your files" to select them:</p>
+
+        <div class="file-list">
+          <div class="file-item key-file"><div class="file-icon">🏠</div><div class="file-name">index.html</div><div class="file-desc">Game Hub landing page ← most important</div></div>
+          <div class="file-item"><div class="file-icon">🧠</div><div class="file-name">game-truths.html</div><div class="file-desc">Two Truths &amp; a Lie — interactive</div></div>
+          <div class="file-item"><div class="file-icon">💬</div><div class="file-name">game-pitch.html</div><div class="file-desc">Complete the Pitch — interactive</div></div>
+          <div class="file-item"><div class="file-icon">🔍</div><div class="file-name">game-wordsearch.html</div><div class="file-desc">Word Search — interactive</div></div>
+          <div class="file-item"><div class="file-icon">✏️</div><div class="file-name">game-crossword.html</div><div class="file-desc">Crossword — interactive</div></div>
+          <div class="file-item"><div class="file-icon">🔑</div><div class="file-name">answer-key.html</div><div class="file-desc">Answer Keys — facilitator only</div></div>
+          <div class="file-item"><div class="file-icon">📧</div><div class="file-name">static-truths.html</div><div class="file-desc">Email-safe static version</div></div>
+          <div class="file-item"><div class="file-icon">📧</div><div class="file-name">static-pitch.html</div><div class="file-desc">Email-safe static version</div></div>
+          <div class="file-item"><div class="file-icon">📧</div><div class="file-name">static-wordsearch.html</div><div class="file-desc">Email-safe static version</div></div>
+          <div class="file-item"><div class="file-icon">📧</div><div class="file-name">static-crossword.html</div><div class="file-desc">Email-safe static version</div></div>
+        </div>
+
+        <div class="screen-mock" style="margin-top:12px;">
+          <div class="screen-bar">
+            <div class="bar-dots">
+              <div class="bar-dot" style="background:#FF5F56;"></div>
+              <div class="bar-dot" style="background:#FFBD2E;"></div>
+              <div class="bar-dot" style="background:#27C93F;"></div>
+            </div>
+            <div class="bar-url">github.com/[username]/elevate-games/upload</div>
+          </div>
+          <div class="screen-body">
+            <div class="screen-row"><span class="row-icon">📂</span> Drag all 10 HTML files into this area</div>
+            <div class="screen-row active"><span class="row-icon">💬</span> Commit message: "Add ELEVATE game files"</div>
+            <div class="screen-row cta-row"><span class="row-icon">✅</span> Click "Commit changes"</div>
+          </div>
+        </div>
+        <div class="tip green">
+          <div class="tip-icon">✅</div>
+          <div class="tip-text"><strong>Pro tip:</strong> You can upload all files at once by selecting them all (Cmd+A on Mac, Ctrl+A on Windows) in the file picker.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-num" style="background:var(--green);">4</div>
+      <div class="step-body">
+        <div class="step-title">Turn on GitHub Pages</div>
+        <p class="step-desc">This is the step that turns your folder into a live website. In your repository, click <strong>Settings</strong> (top menu, gear icon), then scroll down to find <strong>"Pages"</strong> in the left sidebar.</p>
+
+        <div class="screen-mock">
+          <div class="screen-bar">
+            <div class="bar-dots">
+              <div class="bar-dot" style="background:#FF5F56;"></div>
+              <div class="bar-dot" style="background:#FFBD2E;"></div>
+              <div class="bar-dot" style="background:#27C93F;"></div>
+            </div>
+            <div class="bar-url">github.com/[username]/elevate-games/settings/pages</div>
+          </div>
+          <div class="screen-body">
+            <div class="screen-row"><span class="row-icon">⚙️</span> Click "Settings" tab in your repository</div>
+            <div class="screen-row"><span class="row-icon">📄</span> In left sidebar, click "Pages"</div>
+            <div class="screen-row active"><span class="row-icon">🌿</span> Under "Branch" — select <strong>main</strong> and click Save</div>
+            <div class="screen-row cta-row"><span class="row-icon">🌐</span> GitHub Pages is now building your site!</div>
+          </div>
+        </div>
+
+        <div class="tip blue">
+          <div class="tip-icon">⏱</div>
+          <div class="tip-text"><strong>Wait 1–3 minutes</strong> after clicking Save. GitHub needs a moment to build and deploy. Refresh the Settings → Pages screen and a green banner with your URL will appear when it's ready.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-num" style="background:var(--sun); color:var(--ink);">5</div>
+      <div class="step-body">
+        <div class="step-title">Copy your live URL 🎉</div>
+        <p class="step-desc">Once GitHub Pages finishes building, the Settings → Pages screen shows a green box with your live URL. It will look like this:</p>
+
+        <div class="url-box">
+          <div class="url-label">Your Game Hub URL</div>
+          <div class="url-value">https://[your-username].github.io/elevate-games/</div>
+          <div class="url-note">Replace [your-username] with your actual GitHub username. Individual games are at:<br/>
+            .../elevate-games/game-truths.html<br/>
+            .../elevate-games/game-pitch.html<br/>
+            .../elevate-games/game-wordsearch.html<br/>
+            .../elevate-games/game-crossword.html
+          </div>
+        </div>
+
+        <div class="tip green" style="margin-top:12px;">
+          <div class="tip-icon">✅</div>
+          <div class="tip-text"><strong>Test it:</strong> Open the URL in a private/incognito browser window to confirm everything works as a regular user would see it. Try on your phone too — the games are mobile-friendly.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step">
+      <div class="step-num" style="background:var(--coral);">6</div>
+      <div class="step-body">
+        <div class="step-title">Update your newsletter button</div>
+        <p class="step-desc">Now paste your GitHub Pages URL into the newsletter template. In the email HTML files, find every instance of <strong>[YOUR-GITHUB-PAGES-URL]</strong> and replace it with your actual URL.</p>
+
+        <div class="code-block">
+<span class="comment"><!-- Find this in your email HTML: --></span>
+href="<span class="highlight">[YOUR-GITHUB-PAGES-URL]</span>/game-truths.html"
+
+<span class="comment"><!-- Replace with your actual URL: --></span>
+href="<span class="url">https://brandonosborne-elevate.github.io/elevate-games/game-truths.html</span>"
+        </div>
+
+        <div class="tip yellow">
+          <div class="tip-icon">💡</div>
+          <div class="tip-text"><strong>Quick way:</strong> Open any HTML file in a text editor (TextEdit on Mac, Notepad on Windows), use Find &amp; Replace (Cmd+H or Ctrl+H), paste <strong>[YOUR-GITHUB-PAGES-URL]</strong> in the Find field, and your real URL in the Replace field. Hit Replace All.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step" style="padding-bottom:0;">
+      <div class="step-num" style="background:var(--green);">7</div>
+      <div class="step-body">
+        <div class="step-title">Updating games for future issues</div>
+        <p class="step-desc">Each issue, you'll want to update the trivia questions, pitch scenarios, and newsletter issue number. Here's how to push updates:</p>
+
+        <div class="screen-mock">
+          <div class="screen-bar">
+            <div class="bar-dots">
+              <div class="bar-dot" style="background:#FF5F56;"></div>
+              <div class="bar-dot" style="background:#FFBD2E;"></div>
+              <div class="bar-dot" style="background:#27C93F;"></div>
+            </div>
+            <div class="bar-url">github.com/[username]/elevate-games</div>
+          </div>
+          <div class="screen-body">
+            <div class="screen-row"><span class="row-icon">📄</span> Click the file you want to update</div>
+            <div class="screen-row active"><span class="row-icon">✏️</span> Click the pencil icon (Edit this file)</div>
+            <div class="screen-row"><span class="row-icon">🔄</span> Make your changes in the editor</div>
+            <div class="screen-row cta-row"><span class="row-icon">✅</span> Scroll down → "Commit changes"</div>
+          </div>
+        </div>
+
+        <div class="tip blue" style="margin-top:8px;">
+          <div class="tip-icon">⚡</div>
+          <div class="tip-text"><strong>Changes go live in ~60 seconds</strong> after you commit. No extra steps needed — GitHub Pages rebuilds automatically every time you save a file.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /steps -->
+
+  <!-- NEWSLETTER COPY TEMPLATE -->
+  <div class="email-section">
+    <div class="email-sec-title">📧 Ready-to-Use Newsletter Copy</div>
+    <p class="email-sec-desc">Drop this into the Games section of your ELEVATE newsletter — just replace the URL placeholder:</p>
+    <div class="email-copy-box">
+      <div class="email-copy-label">Copy & Paste into Newsletter</div>
+      <div class="email-copy-text">
+        🎮 <strong>This Week's Game</strong> — <em>[Game Name]</em><br/><br/>
+        <span class="placeholder">[One-sentence description of the game and what they'll learn]</span><br/><br/>
+        ▶ <strong>Play in browser:</strong> <span class="placeholder">[YOUR-GITHUB-PAGES-URL]/game-[name].html</span><br/>
+        📧 <strong>Email version below</strong> — or reply with your answers: R1:A R2:C R3:B<br/><br/>
+        <em>Answer key revealed at the next session. Best scores get a shoutout!</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq">
+    <div class="faq-title">❓ Common Questions</div>
+
+    <div class="faq-item">
+      <div class="faq-q">Is this actually free? Will I get charged?</div>
+      <div class="faq-a">Yes, completely free. GitHub Pages is free for public repositories with no usage limits for static HTML files like these. No credit card required at any point.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can people outside Apple access the URL?</div>
+      <div class="faq-a"><strong>Yes — that's how public GitHub Pages works.</strong> Anyone with the URL can view the games. Since these are internal training games (not sensitive data), that's fine. The facilitator answer key should be shared only via direct link, not posted publicly. If you need password protection, consider Notion (free tier) or a paid hosting platform instead.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if I make a mistake uploading files?</div>
+      <div class="faq-a">You can delete and re-upload any file at any time. In your repo, click the file → click the trash can icon → commit the deletion → then re-upload the corrected version.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can I use a custom domain (like elevate.apple.com)?</div>
+      <div class="faq-a">GitHub Pages supports custom domains, but setting one up through Apple's domain system would require IT involvement. For internal use, the <strong>username.github.io/elevate-games</strong> URL works perfectly.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">The page isn't showing up after I enabled GitHub Pages — what do I do?</div>
+      <div class="faq-a">Wait 2–3 minutes and hard-refresh (Cmd+Shift+R or Ctrl+Shift+R). If it still doesn't work: <strong>(1)</strong> confirm your repo is Public in Settings → General. <strong>(2)</strong> Confirm you selected "main" branch in Settings → Pages. <strong>(3)</strong> Make sure a file called exactly <strong>index.html</strong> exists in the root of your repo.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How do I share the answer key without sharing it publicly?</div>
+      <div class="faq-a">Simply don't link to <strong>answer-key.html</strong> anywhere in the newsletter or Game Hub. The file exists on GitHub but no one will find it unless they have the direct URL. Share it privately in a Webex message to your facilitator group.</div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

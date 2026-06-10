@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Complete the Pitch · ELEVATE</title>
+
+<style>
+:root {
+  --ink:     #1A1A2E;
+  --white:   #FFFFFF;
+  --cream:   #FFFCF5;
+  --blue:    #1B4FD8;
+  --blue-lt: #EEF3FF;
+  --blue-md: #C5D7FF;
+  --coral:   #F4603A;
+  --coral-lt:#FFF0EC;
+  --sun:     #FFD60A;
+  --sun-lt:  #FFFBE6;
+  --green:   #1D9E6B;
+  --green-lt:#E4F8F0;
+  --purp:    #6C3DD4;
+  --purp-lt: #F2EDFF;
+  --purp-md: #C9B8FF;
+  --gray:    #6B6B7B;
+  --rule:    #E8E4DC;
+  --teal:    #0B7A6E;
+  --teal-lt: #E3F5F3;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body {
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  background: var(--cream);
+  min-height:100vh;
+  color:var(--ink);
+}
+
+/* ── PAGE ── */
+.page {
+  max-width:740px;
+  margin:0 auto;
+  padding:44px 28px 80px;
+}
+
+/* ── HEADER ── */
+.hdr {
+  margin-bottom:32px;
+}
+.hdr-eyebrow {
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--sun);
+  color:var(--ink);
+  font-size:11px;font-weight:800;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:5px 14px;border-radius:100px;
+  margin-bottom:14px;
+  box-shadow:2px 2px 0 rgba(0,0,0,0.1);
+}
+.hdr-title {
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:52px;
+  line-height:1.0;
+  color:var(--ink);
+  margin-bottom:10px;
+}
+.hdr-title .accent { color:var(--blue); }
+.hdr-title .accent2 { color:var(--coral); }
+.hdr-desc {
+  font-size:15px;font-weight:600;
+  color:var(--gray);
+  line-height:1.65;
+  max-width:520px;
+}
+.hdr-desc strong { color:var(--ink); }
+
+/* ── TOP BAR (score + progress) ── */
+.top-bar {
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:28px;
+}
+.progress-track {
+  flex:1;height:8px;
+  background:var(--rule);
+  border-radius:100px;overflow:hidden;
+}
+.progress-fill {
+  height:100%;
+  background:linear-gradient(90deg,var(--blue),var(--purp));
+  border-radius:100px;
+  transition:width 0.5s cubic-bezier(.4,0,.2,1);
+}
+.top-badge {
+  background:var(--white);
+  border:2px solid var(--rule);
+  border-radius:100px;
+  padding:6px 16px;
+  font-size:13px;font-weight:800;
+  color:var(--ink);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.top-badge .pts { color:var(--blue); }
+
+/* ── SCENARIO CARD ── */
+.scenario-card {
+  background:var(--white);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 4px 0 var(--rule), 0 8px 24px rgba(0,0,0,0.06);
+  margin-bottom:20px;
+}
+
+.card-band {
+  padding:16px 28px;
+  display:flex;align-items:center;gap:12px;
+}
+.card-round-pill {
+  font-size:10px;font-weight:800;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:4px 12px;border-radius:100px;
+  color:var(--white);
+  background:var(--blue);
+  flex-shrink:0;
+}
+.card-topic {
+  font-size:12px;font-weight:700;
+  color:var(--white);
+  opacity:0.8;
+}
+.card-body {
+  padding:24px 28px 28px;
+}
+.scene-label {
+  font-size:10px;font-weight:800;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gray);
+  margin-bottom:8px;
+}
+.scene-text {
+  font-size:14px;font-weight:600;
+  color:var(--gray);
+  line-height:1.7;
+  background:var(--cream);
+  border-radius:12px;
+  padding:14px 16px;
+  margin-bottom:22px;
+  border-left:4px solid var(--rule);
+  font-style:italic;
+}
+
+.pitch-label {
+  font-size:10px;font-weight:800;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:10px;
+}
+.pitch-text {
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-size:17px;
+  font-weight:700;
+  line-height:1.8;
+  color:var(--ink);
+}
+
+/* ── BLANK INPUT ── */
+.blank-wrap {
+  display:inline-block;
+  position:relative;
+  vertical-align:middle;
+  margin:0 2px;
+}
+.blank-input {
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:17px;
+  color:var(--blue);
+  background:var(--blue-lt);
+  border:2px dashed var(--blue-md);
+  border-radius:8px;
+  padding:2px 10px 2px 8px;
+  min-width:120px;
+  width:auto;
+  outline:none;
+  text-align:center;
+  transition:border-color 0.2s, background 0.2s;
+  cursor:text;
+}
+.blank-input::placeholder {
+  color:var(--blue-md);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-size:13px;
+  font-weight:700;
+}
+.blank-input:focus {
+  border-color:var(--blue);
+  background:var(--white);
+  box-shadow:0 0 0 3px rgba(27,79,216,0.12);
+}
+/* revealed states */
+.blank-input.correct {
+  background:var(--green-lt);
+  border-color:var(--green);
+  color:var(--green);
+  border-style:solid;
+  cursor:default;
+}
+.blank-input.close {
+  background:var(--sun-lt);
+  border-color:var(--sun);
+  color:#7A5A00;
+  border-style:solid;
+  cursor:default;
+}
+.blank-input.wrong {
+  background:var(--coral-lt);
+  border-color:var(--coral);
+  color:var(--coral);
+  border-style:solid;
+  cursor:default;
+}
+.blank-input.show-answer {
+  background:var(--green-lt);
+  border-color:var(--green);
+  color:var(--green);
+  border-style:solid;
+  cursor:default;
+}
+
+/* answer hint that appears under each blank */
+.blank-hint {
+  display:none;
+  font-size:11px;font-weight:700;
+  text-align:center;
+  margin-top:3px;
+  border-radius:6px;
+  padding:2px 6px;
+}
+.blank-hint.show { display:block; }
+.blank-hint.correct { color:var(--green); }
+.blank-hint.close   { color:#7A5A00; }
+.blank-hint.wrong   { color:var(--coral); }
+
+/* ── WORD BANK ── */
+.word-bank-section {
+  margin-bottom:22px;
+}
+.word-bank-label {
+  font-size:10px;font-weight:800;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--purp);
+  margin-bottom:8px;
+}
+.word-bank {
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.word-chip {
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:14px;
+  background:var(--purp-lt);
+  color:var(--purp);
+  border:2px solid var(--purp-md);
+  border-radius:100px;
+  padding:5px 16px;
+  cursor:pointer;
+  transition:all 0.15s;
+  user-select:none;
+}
+.word-chip:hover { background:var(--purp); color:var(--white); transform:translateY(-2px); }
+.word-chip.used { opacity:0.35; pointer-events:none; text-decoration:line-through; }
+.word-chip.dragging { opacity:0.5; }
+
+/* ── EXPLANATION ── */
+.explanation {
+  display:none;
+  border-radius:16px;
+  padding:18px 22px;
+  margin-top:0;
+  animation:popIn 0.3s cubic-bezier(.34,1.56,.64,1);
+}
+.explanation.show { display:block; }
+.explanation.great { background:var(--green-lt); border:2px solid #A8E6CC; }
+.explanation.good  { background:var(--sun-lt);   border:2px solid #FFE680; }
+.explanation.ok    { background:var(--coral-lt); border:2px solid #FFBFAD; }
+
+.exp-head {
+  font-size:16px;font-weight:800;
+  margin-bottom:6px;
+}
+.explanation.great .exp-head { color:var(--green); }
+.explanation.good  .exp-head { color:#7A5A00; }
+.explanation.ok    .exp-head { color:var(--coral); }
+
+.exp-body {
+  font-size:14px;font-weight:600;
+  color:var(--ink);
+  line-height:1.65;
+}
+.exp-body strong { color:var(--blue); }
+.exp-body .ideal {
+  display:block;margin-top:10px;
+  background:var(--white);
+  border-radius:10px;
+  padding:12px 14px;
+  font-style:italic;
+  color:var(--ink);
+  font-weight:700;
+  font-size:14px;
+  border-left:4px solid var(--blue);
+}
+
+@keyframes popIn {
+  from { opacity:0; transform:scale(0.95) translateY(6px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+
+/* ── BUTTONS ── */
+.btn-row {
+  display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;
+}
+.btn {
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:16px;
+  letter-spacing:0.02em;
+  padding:12px 28px;
+  border-radius:100px;
+  border:none;cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-primary {
+  background:var(--blue);color:var(--white);
+  box-shadow:0 3px 0 var(--blue-md);
+}
+.btn-primary:hover:not(:disabled) {
+  background:#133FB0;transform:translateY(-2px);
+  box-shadow:0 5px 0 var(--blue-md);
+}
+.btn-primary:disabled { opacity:0.4;cursor:not-allowed;box-shadow:none; }
+.btn-ghost {
+  background:var(--white);color:var(--purp);
+  border:2px solid var(--purp-md);
+}
+.btn-ghost:hover { background:var(--purp-lt); }
+.btn-skip {
+  background:transparent;color:var(--gray);
+  border:2px solid var(--rule);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-size:13px;font-weight:800;
+}
+.btn-skip:hover { background:var(--rule); }
+
+/* ── RESULT SCREEN ── */
+.result-screen {
+  display:none;
+  animation:popIn 0.4s ease;
+}
+.result-screen.show { display:block; }
+
+.result-hero {
+  text-align:center;
+  padding:32px 0 24px;
+}
+.result-emoji {
+  font-size:72px;
+  display:block;
+  margin-bottom:16px;
+  animation:bounce 0.6s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes bounce {
+  0%   { transform:scale(0); }
+  60%  { transform:scale(1.15); }
+  100% { transform:scale(1); }
+}
+.result-title {
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:42px;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.result-score {
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:80px;
+  color:var(--blue);
+  line-height:1;
+  margin:8px 0 4px;
+}
+.result-score-sub {
+  font-size:14px;font-weight:700;
+  color:var(--gray);
+  margin-bottom:16px;
+}
+.result-msg {
+  font-size:16px;font-weight:700;
+  color:var(--gray);
+  max-width:420px;
+  margin:0 auto 28px;
+  line-height:1.65;
+}
+.result-msg strong { color:var(--ink); }
+
+/* breakdown */
+.breakdown {
+  background:var(--white);
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 4px 0 var(--rule);
+  margin-bottom:28px;
+}
+.breakdown-title {
+  font-size:11px;font-weight:800;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gray);
+  margin-bottom:16px;
+}
+.bd-row {
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid var(--rule);
+  font-size:14px;font-weight:600;
+}
+.bd-row:last-child { border-bottom:none; }
+.bd-dot {
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:var(--white);
+  flex-shrink:0;
+}
+.dot-full  { background:var(--green); }
+.dot-half  { background:var(--sun); }
+.dot-zero  { background:var(--coral); }
+.bd-text   { flex:1;color:var(--ink); }
+.bd-pts    { font-family:Georgia,'Times New Roman',serif;font-size:18px;color:var(--blue); }
+
+/* ── CONFETTI (CSS only) ── */
+.confetti-wrap {
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:999;overflow:hidden;
+  display:none;
+}
+.confetti-wrap.show { display:block; }
+.confetto {
+  position:absolute;top:-16px;
+  width:10px;height:10px;
+  border-radius:2px;
+  animation:fall linear forwards;
+}
+@keyframes fall {
+  to { transform:translateY(110vh) rotate(720deg); opacity:0; }
+}
+
+/* ── PRINT ── */
+@media print {
+  .no-print { display:none!important; }
+  body { background:#fff; }
+  .scenario-card { box-shadow:none; border:1px solid #ddd; }
+}
+
+/* ── MOBILE ── */
+@media(max-width:580px){
+  .page{padding:28px 16px 60px;}
+  .hdr-title{font-size:38px;}
+  .pitch-text{font-size:15px;}
+  .blank-input{min-width:90px;font-size:15px;}
+}
+</style>
+</head>
+<body>
+
+<!-- CONFETTI -->
+<div class="confetti-wrap" id="confettiWrap"></div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hdr no-print">
+    <div class="hdr-eyebrow">🍎 ELEVATE · Weekly Game</div>
+    <div class="hdr-title">
+      Complete<br/>
+      <span class="accent">the </span><span class="accent2">Pitch.</span>
+    </div>
+    <p class="hdr-desc">
+      A customer walks up. You know your stuff — but <strong>do the words come out right?</strong><br/>
+      Fill in the blanks to complete each Apple ecosystem pitch. Use the word bank or type it yourself.
+    </p>
+  </div>
+
+  <!-- TOP BAR -->
+  <div class="top-bar no-print">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="top-badge">
+      <span id="roundLabel">1 / 5</span> &nbsp;·&nbsp; <span class="pts" id="scoreLabel">0 pts</span>
+    </div>
+  </div>
+
+  <!-- GAME AREA -->
+  <div id="gameArea"></div>
+
+  <!-- RESULT SCREEN -->
+  <div class="result-screen" id="resultScreen">
+    <div class="result-hero">
+      <span class="result-emoji" id="resultEmoji">🏆</span>
+      <div class="result-title" id="resultTitle">Nice work!</div>
+      <div class="result-score" id="resultScore">0</div>
+      <div class="result-score-sub">out of 10 points</div>
+      <p class="result-msg" id="resultMsg"></p>
+      <div class="btn-row no-print" style="justify-content:center;margin-bottom:32px;">
+        <button class="btn btn-primary" onclick="restart()">Play Again 🔁</button>
+        <button class="btn btn-ghost" onclick="window.print()">🖨 Print</button>
+      </div>
+    </div>
+    <div class="breakdown">
+      <div class="breakdown-title">Round by Round</div>
+      <div id="breakdownList"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  PITCH DATA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const pitches = [
+  {
+    topic: "iPad · Classroom Management",
+    color: "#1B4FD8",
+    scene: "A K-12 IT director says: \"We like the iPads, but our teachers are worried they won't be able to manage what students are doing on them.\"",
+    template: [
+      "That's actually one of the biggest strengths of iPad in the classroom. The ",
+      { blank: 0, placeholder: "app name", size: 140 },
+      " app lets teachers see every student's screen, ",
+      { blank: 1, placeholder: "action", size: 110 },
+      " their device when needed, and guide the whole class to the same app — all from their own iPad. Combined with ",
+      { blank: 2, placeholder: "platform", size: 160 },
+      ", your IT team can deploy and manage every device in the district without touching a single one."
+    ],
+    blanks: ["Classroom", "lock", "Apple School Manager"],
+    wordBank: ["Classroom", "lock", "Apple School Manager", "Jamf", "mute", "Schoolwork"],
+    explanation: {
+      grade: "great",
+      head: "That's the pitch! 🎯",
+      body: "The <strong>Classroom app</strong> is Apple's built-in teacher control tool — free, no MDM required for basic use. <strong>Lock</strong> is the key verb customers respond to (\"you mean I can freeze their screen?\" — yes). <strong>Apple School Manager</strong> is the zero-touch deployment platform. Together, these three words address the two biggest K-12 objections in one breath.",
+      ideal: "\"The Classroom app lets teachers lock devices and guide the class — and Apple School Manager means your IT team can deploy everything remotely.\""
+    }
+  },
+  {
+    topic: "Mac · The Ecosystem Handoff",
+    color: "#6C3DD4",
+    scene: "A university department head says: \"Our faculty already have iPhones. Would switching to Mac actually make a difference for them, or is it just a different computer?\"",
+    template: [
+      "It's a lot more than a different computer. When your faculty use Mac alongside iPhone, features like ",
+      { blank: 0, placeholder: "feature", size: 120 },
+      " let them answer calls and texts right on their Mac. ",
+      { blank: 1, placeholder: "feature", size: 110 },
+      " means they can copy something on their iPhone and paste it directly on their Mac — no AirDrop, no email to yourself. And with ",
+      { blank: 2, placeholder: "feature", size: 130 },
+      ", they can use their iPhone as a wireless webcam with automatic framing. The iPhone they already love just gets more powerful."
+    ],
+    blanks: ["Continuity", "Universal Clipboard", "Continuity Camera"],
+    wordBank: ["Continuity", "Universal Clipboard", "Continuity Camera", "Handoff", "AirDrop", "Sidecar"],
+    explanation: {
+      grade: "great",
+      head: "The ecosystem sell — nailed it. 🔗",
+      body: "<strong>Continuity</strong> is the umbrella term that covers calls and texts on Mac. <strong>Universal Clipboard</strong> is the one that makes people say 'wait, seriously?' when you demo it live. <strong>Continuity Camera</strong> is the sleeper hit for hybrid-working faculty — their iPhone's camera is dramatically better than any built-in webcam.",
+      ideal: "\"Continuity lets them take calls on Mac, Universal Clipboard connects copy-paste across devices, and Continuity Camera turns their iPhone into a pro webcam.\""
+    }
+  },
+  {
+    topic: "iPad · Higher Ed Productivity",
+    color: "#F4603A",
+    scene: "A college student's advisor says: \"Students are telling us they want something lighter than a laptop for class, but powerful enough to actually get work done.\"",
+    template: [
+      "iPad with ",
+      { blank: 0, placeholder: "keyboard", size: 130 },
+      " is exactly that middle ground. They get a ",
+      { blank: 1, placeholder: "chip", size: 80 },
+      " chip — the same power as many laptops — in something that weighs under a pound. For note-taking, ",
+      { blank: 2, placeholder: "tool", size: 100 },
+      " with Apple Pencil is a game-changer: they can write, sketch, annotate PDFs, and search their handwriting later. One device handles everything from the lecture hall to the dorm."
+    ],
+    blanks: ["Magic Keyboard", "M2", "Apple Notes"],
+    wordBank: ["Magic Keyboard", "M2", "Apple Notes", "Smart Folio", "A16", "GoodNotes"],
+    explanation: {
+      grade: "great",
+      head: "Lightweight but powerful — perfectly framed. ⚡",
+      body: "<strong>Magic Keyboard</strong> is the key accessory that makes iPad a laptop replacement conversation — not just a tablet. <strong>M2</strong> (or M4 on newer models) grounds the claim with a spec students and parents understand. <strong>Apple Notes</strong> is the on-device answer — though mentioning GoodNotes as a popular alternative is smart if the student already uses it.",
+      ideal: "\"iPad with Magic Keyboard and an M2 chip is genuinely laptop-class — and Apple Notes with Apple Pencil means their handwritten notes are searchable.\""
+    }
+  },
+  {
+    topic: "Mac · Security Objection",
+    color: "#0B7A6E",
+    scene: "A district IT manager says: \"Our security team pushes back on Macs because they say it's harder to manage and less secure than Windows with our current tools.\"",
+    template: [
+      "Mac is actually built for enterprise management. Every Mac ships with ",
+      { blank: 0, placeholder: "framework", size: 130 },
+      " built in — it's Apple's native framework that works with every major MDM, including your team's existing tools. For security, the ",
+      { blank: 1, placeholder: "chip name", size: 100 },
+      " chip has hardware-level encryption and a dedicated ",
+      { blank: 2, placeholder: "component", size: 130 },
+      " that protects the boot process — it's one of the most secure consumer platforms available."
+    ],
+    blanks: ["MDM support", "Apple Silicon", "Secure Enclave"],
+    wordBank: ["MDM support", "Apple Silicon", "Secure Enclave", "FileVault", "Gatekeeper", "T2 chip"],
+    explanation: {
+      grade: "great",
+      head: "Turn the objection into a feature. 🔐",
+      body: "<strong>MDM support</strong> is native — Apple built the MDM framework into macOS, so their existing Jamf, Mosyle, or Kandji deployment works day one. <strong>Apple Silicon</strong> is the hardware story. The <strong>Secure Enclave</strong> is the component that handles Touch ID, encryption keys, and secure boot — it exists at the chip level, not just software.",
+      ideal: "\"Mac has native MDM support out of the box, and Apple Silicon's Secure Enclave means hardware-level encryption that's genuinely difficult to compromise.\""
+    }
+  },
+  {
+    topic: "Apple Ecosystem · Accessibility",
+    color: "#1D9E6B",
+    scene: "A special education coordinator says: \"We have students with a wide range of needs — visual, motor, communication. Can one device really serve all of them?\"",
+    template: [
+      "Apple builds accessibility into the operating system — it's not a separate app or add-on. For students with visual needs, ",
+      { blank: 0, placeholder: "feature", size: 100 },
+      " provides full screen reading. For motor challenges, ",
+      { blank: 1, placeholder: "feature", size: 110 },
+      " lets students control their iPad or iPhone entirely with eye movement. And for communication needs, ",
+      { blank: 2, placeholder: "feature", size: 130 },
+      " turns a device into an AAC tool — no expensive third-party hardware required."
+    ],
+    blanks: ["VoiceOver", "Eye Tracking", "Assistive Access"],
+    wordBank: ["VoiceOver", "Eye Tracking", "Assistive Access", "Switch Control", "Live Captions", "Magnifier"],
+    explanation: {
+      grade: "great",
+      head: "One device, every learner. ♿",
+      body: "<strong>VoiceOver</strong> is Apple's screen reader — the industry standard, built in free. <strong>Eye Tracking</strong> (added in iOS 18) is a breakthrough for students with motor disabilities — no hardware required, just the front-facing camera. <strong>Assistive Access</strong> creates a simplified, customizable interface for cognitive and communication needs. The real point: these ship free on every device.",
+      ideal: "\"VoiceOver, Eye Tracking, and Assistive Access are all built into every iPad — free, no accessories needed. One device genuinely serves the full spectrum.\""
+    }
+  }
+];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  STATE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+let current = 0;
+let totalScore = 0;
+let roundResults = [];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  RENDER ROUND
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function renderRound() {
+  const p = pitches[current];
+  const pct = (current / pitches.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('roundLabel').textContent = `${current + 1} / ${pitches.length}`;
+  document.getElementById('scoreLabel').textContent = `${totalScore} pts`;
+
+  // build pitch HTML
+  let pitchHTML = '';
+  p.template.forEach(part => {
+    if (typeof part === 'string') {
+      pitchHTML += part;
+    } else {
+      pitchHTML += `
+        <span class="blank-wrap" id="bwrap${part.blank}">
+          <input
+            class="blank-input"
+            id="blank${part.blank}"
+            type="text"
+            placeholder="${part.placeholder}…"
+            style="width:${part.size}px"
+            autocomplete="off" autocorrect="off" spellcheck="false"
+            oninput="onBlankInput(this, ${part.blank})"
+            onkeydown="if(event.key==='Enter')checkAnswers()"
+          />
+          <div class="blank-hint" id="bhint${part.blank}"></div>
+        </span>`;
+    }
+  });
+
+  // word bank
+  const wbHTML = p.wordBank.map((w, i) =>
+    `<div class="word-chip" id="wc${i}" onclick="useWord(this,'${w}')">${w}</div>`
+  ).join('');
+
+  const html = `
+    <div class="scenario-card" id="scenarioCard">
+      <div class="card-band" style="background:${p.color};">
+        <div class="card-round-pill">Pitch ${current + 1}</div>
+        <div class="card-topic">${p.topic}</div>
+      </div>
+      <div class="card-body">
+        <div class="scene-label">The Situation</div>
+        <div class="scene-text">${p.scene}</div>
+
+        <div class="pitch-label">Your Pitch — Fill in the Blanks</div>
+        <div class="pitch-text" id="pitchText">${pitchHTML}</div>
+
+        <div style="margin-top:20px;">
+          <div class="word-bank-section">
+            <div class="word-bank-label">💡 Word Bank — tap to insert</div>
+            <div class="word-bank" id="wordBank">${wbHTML}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="explanation" id="explanation"></div>
+
+    <div class="btn-row no-print">
+      <button class="btn btn-primary" id="submitBtn" onclick="checkAnswers()">Check My Pitch ✓</button>
+      <button class="btn btn-skip" onclick="skipRound()">Skip →</button>
+    </div>
+  `;
+
+  document.getElementById('gameArea').innerHTML = html;
+
+  // auto-focus first blank
+  setTimeout(() => {
+    const f = document.getElementById('blank0');
+    if (f) f.focus();
+  }, 100);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  WORD BANK CLICK
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// track which blank is "active" (last focused)
+let activeBlank = 0;
+function onBlankInput(el, idx) {
+  activeBlank = idx;
+}
+document.addEventListener('focusin', e => {
+  if (e.target && e.target.classList.contains('blank-input')) {
+    const id = e.target.id.replace('blank','');
+    activeBlank = parseInt(id);
+  }
+});
+
+function useWord(chipEl, word) {
+  const input = document.getElementById('blank' + activeBlank);
+  if (!input || input.disabled) {
+    // find first empty blank
+    const p = pitches[current];
+    for (let i = 0; i < p.blanks.length; i++) {
+      const inp = document.getElementById('blank' + i);
+      if (inp && !inp.disabled && !inp.value) {
+        inp.value = word;
+        activeBlank = i + 1 < p.blanks.length ? i + 1 : i;
+        chipEl.classList.add('used');
+        return;
+      }
+    }
+    return;
+  }
+  input.value = word;
+  chipEl.classList.add('used');
+  // advance focus
+  const p = pitches[current];
+  const next = activeBlank + 1;
+  if (next < p.blanks.length) {
+    const nxt = document.getElementById('blank' + next);
+    if (nxt) { nxt.focus(); activeBlank = next; }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  CHECK ANSWERS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function normalize(s) {
+  return s.toLowerCase().replace(/[^a-z0-9]/g,'').trim();
+}
+
+function checkAnswers() {
+  const p = pitches[current];
+  let roundPts = 0;
+  let allCorrect = true;
+  let anyClose = false;
+
+  p.blanks.forEach((answer, i) => {
+    const input = document.getElementById('blank' + i);
+    const hint  = document.getElementById('bhint' + i);
+    if (!input) return;
+
+    const userVal = normalize(input.value);
+    const correctVal = normalize(answer);
+
+    // also check alternate words from word bank that could be acceptable
+    const alts = (p.wordBank || []).map(normalize);
+
+    input.disabled = true;
+    input.classList.remove('correct','close','wrong','show-answer');
+    hint.classList.remove('show','correct','close','wrong');
+
+    if (userVal === correctVal) {
+      input.classList.add('correct');
+      hint.textContent = '✓ perfect';
+      hint.classList.add('show','correct');
+      roundPts += 2;
+    } else if (userVal.length > 0 && (correctVal.includes(userVal) || userVal.includes(correctVal.split(' ')[0]))) {
+      // close enough
+      input.classList.add('close');
+      input.value = answer; // show correct
+      hint.textContent = '~ close! → ' + answer;
+      hint.classList.add('show','close');
+      roundPts += 1;
+      anyClose = true;
+      allCorrect = false;
+    } else {
+      input.classList.add('wrong');
+      // show correct answer
+      const showEl = document.createElement('div');
+      hint.textContent = '✗ → ' + answer;
+      hint.classList.add('show','wrong');
+      allCorrect = false;
+    }
+  });
+
+  totalScore += roundPts;
+  document.getElementById('scoreLabel').textContent = `${totalScore} pts`;
+  roundResults.push({ topic: p.topic, pts: roundPts, max: p.blanks.length * 2 });
+
+  // show explanation
+  const exp = p.explanation;
+  const grade = roundPts === p.blanks.length * 2 ? 'great' : roundPts > 0 ? 'good' : 'ok';
+  const expEl = document.getElementById('explanation');
+  expEl.className = `explanation show ${grade}`;
+  expEl.innerHTML = `
+    <div class="exp-head">${exp.head}</div>
+    <div class="exp-body">
+      ${exp.body}
+      <span class="ideal">"${exp.ideal.replace(/^"|"$/g,'')}"</span>
+    </div>
+  `;
+
+  // swap buttons
+  const isLast = current === pitches.length - 1;
+  document.querySelector('.btn-row').innerHTML = isLast
+    ? `<button class="btn btn-primary no-print" onclick="showResults()">See My Results 🏆</button>`
+    : `<button class="btn btn-primary no-print" onclick="nextRound()">Next Pitch →</button>`;
+
+  expEl.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function skipRound() {
+  const p = pitches[current];
+  // fill in correct answers
+  p.blanks.forEach((answer, i) => {
+    const input = document.getElementById('blank' + i);
+    if (input) {
+      input.value = answer;
+      input.disabled = true;
+      input.classList.add('show-answer');
+      const hint = document.getElementById('bhint' + i);
+      hint.textContent = '→ answer';
+      hint.classList.add('show','wrong');
+    }
+  });
+  roundResults.push({ topic: p.topic, pts: 0, max: p.blanks.length * 2 });
+
+  const isLast = current === pitches.length - 1;
+  document.querySelector('.btn-row').innerHTML = isLast
+    ? `<button class="btn btn-primary no-print" onclick="showResults()">See My Results 🏆</button>`
+    : `<button class="btn btn-primary no-print" onclick="nextRound()">Next Pitch →</button>`;
+
+  // show exp
+  const exp = p.explanation;
+  const expEl = document.getElementById('explanation');
+  expEl.className = 'explanation show ok';
+  expEl.innerHTML = `
+    <div class="exp-head">Here's the ideal pitch 👇</div>
+    <div class="exp-body">
+      ${exp.body}
+      <span class="ideal">"${exp.ideal.replace(/^"|"$/g,'')}"</span>
+    </div>
+  `;
+}
+
+function nextRound() {
+  current++;
+  renderRound();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  RESULTS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function showResults() {
+  document.getElementById('gameArea').style.display = 'none';
+  const rs = document.getElementById('resultScreen');
+  rs.classList.add('show');
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('roundLabel').textContent = '✓ Done!';
+  document.getElementById('scoreLabel').textContent = `${totalScore} pts`;
+
+  const maxPts = pitches.reduce((a,p) => a + p.blanks.length * 2, 0);
+  const pct = totalScore / maxPts;
+
+  document.getElementById('resultScore').textContent = totalScore;
+  document.getElementById('resultScore').nextElementSibling.textContent = `out of ${maxPts} points`;
+
+  let emoji, title, msg;
+  if (pct >= 0.9)      { emoji='🏆'; title='Pitch Perfect.';    msg='<strong>Full marks (almost).</strong> You\'ve got the Apple ecosystem talk track down cold. Your customers feel that confidence.'; }
+  else if (pct >= 0.7) { emoji='⭐'; title='Strong Pitcher.';   msg='<strong>Solid all-around.</strong> A couple of blanks tripped you up — but the framework is there. Review the missed answers before your next call.'; }
+  else if (pct >= 0.5) { emoji='📖'; title='Getting There.';    msg='<strong>Good instincts.</strong> The product knowledge gaps are clear — use the explanations above as your cheat sheet. Run through it again before the week\'s out.'; }
+  else                  { emoji='💪'; title='Keep Practicing.'; msg='<strong>Everyone starts somewhere.</strong> Read through every explanation above — each one is a real customer conversation waiting to happen.'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultMsg').innerHTML = msg;
+
+  // breakdown
+  const bd = roundResults.map((r, i) => {
+    const cls = r.pts === r.max ? 'dot-full' : r.pts > 0 ? 'dot-half' : 'dot-zero';
+    const label = r.pts === r.max ? '✓' : r.pts > 0 ? '~' : '✗';
+    return `
+      <div class="bd-row">
+        <div class="bd-dot ${cls}">${label}</div>
+        <div class="bd-text">Pitch ${i+1} — ${r.topic}</div>
+        <div class="bd-pts">${r.pts}/${r.max}</div>
+      </div>`;
+  }).join('');
+  document.getElementById('breakdownList').innerHTML = bd;
+
+  // confetti for high scores
+  if (pct >= 0.8) launchConfetti();
+
+  rs.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  CONFETTI
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function launchConfetti() {
+  const wrap = document.getElementById('confettiWrap');
+  wrap.innerHTML = '';
+  wrap.classList.add('show');
+  const colors = ['#1B4FD8','#F4603A','#FFD60A','#6C3DD4','#1D9E6B','#C5D7FF'];
+  for (let i = 0; i < 60; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetto';
+    c.style.cssText = `
+      left:${Math.random()*100}%;
+      width:${6+Math.random()*8}px;
+      height:${6+Math.random()*8}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation-duration:${1.5+Math.random()*2}s;
+      animation-delay:${Math.random()*0.8}s;
+    `;
+    wrap.appendChild(c);
+  }
+  setTimeout(() => { wrap.classList.remove('show'); wrap.innerHTML=''; }, 3500);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  RESTART
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function restart() {
+  current = 0; totalScore = 0; roundResults = [];
+  document.getElementById('resultScreen').classList.remove('show');
+  document.getElementById('gameArea').style.display = 'block';
+  renderRound();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  INIT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+renderRound();
+</script>
+</body>
+</html>

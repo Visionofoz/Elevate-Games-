@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Two Truths & a Lie — Printable · ELEVATE</title>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a;
+    --purple: #5b4fcf;
+    --purple-light: #f0eeff;
+    --purple-mid: #c4baff;
+    --gray: #6b6b6b;
+    --rule: #e2e2e2;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+    background: #fff;
+    color: var(--ink);
+  }
+
+  /* ── SCREEN PREVIEW SHELL ── */
+  .screen-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 32px 60px;
+  }
+
+  /* ── PRINT STYLES ── */
+  @media print {
+    .screen-wrap { padding: 0; margin: 0; max-width: 100%; }
+    .no-print { display: none !important; }
+    body { font-size: 11pt; }
+    .page-break { page-break-after: always; }
+    .round { page-break-inside: avoid; }
+  }
+
+  /* ── HEADER ── */
+  .print-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 8px;
+  }
+  .print-kicker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 6px;
+  }
+  .print-title {
+    font-family: Georgia,'Times New Roman',serif;
+    font-size: 38px;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  .print-title em { font-style: italic; color: var(--purple); }
+
+  .print-meta {
+    text-align: right;
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.8;
+  }
+  .print-meta strong { color: var(--ink); font-weight: 700; }
+
+  .print-instructions {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.65;
+    padding: 14px 0 20px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 28px;
+  }
+  .print-instructions strong { color: var(--ink); }
+
+  /* ── NAME LINE ── */
+  .name-row {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 28px;
+  }
+  .name-field {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .name-field .line {
+    flex: 1;
+    border-bottom: 1px solid var(--ink);
+    height: 20px;
+  }
+
+  /* ── ROUND BLOCK ── */
+  .round {
+    margin-bottom: 32px;
+  }
+  .round-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .round-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple);
+    background: var(--purple-light);
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--purple-mid);
+  }
+  .round-topic {
+    font-size: 11px;
+    color: var(--gray);
+    font-weight: 500;
+  }
+  .round-prompt {
+    font-family: Georgia,'Times New Roman',serif;
+    font-size: 17px;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+
+  /* ── STATEMENTS ── */
+  .stmt-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .stmt-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--rule);
+    border-radius: 10px;
+    background: #fafafa;
+  }
+  .stmt-bubble {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 1px;
+  }
+  .stmt-text {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 500;
+    flex: 1;
+  }
+  /* circle to fill in for answer */
+  .answer-bubble {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--rule);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  /* ── MY ANSWER LINE ── */
+  .my-answer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0 0;
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-top: 1px dashed var(--rule);
+  }
+  .answer-boxes {
+    display: flex;
+    gap: 8px;
+  }
+  .answer-box {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--rule);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* ── DIVIDER ── */
+  .round-divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 28px 0;
+  }
+
+  /* ── ANSWER KEY (page 2) ── */
+  .answer-key {
+    padding-top: 32px;
+  }
+  .key-header {
+    font-family: Georgia,'Times New Roman',serif;
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+  .key-sub {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 24px;
+  }
+  .key-rule { border: none; border-top: 2px solid var(--ink); margin-bottom: 24px; }
+
+  .key-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .key-item:last-child { border-bottom: none; }
+  .key-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--purple);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .key-content {}
+  .key-topic {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 3px;
+  }
+  .key-answer {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .key-answer span {
+    display: inline-block;
+    background: var(--purple-light);
+    border: 1px solid var(--purple-mid);
+    border-radius: 4px;
+    padding: 1px 8px;
+    font-size: 12px;
+    color: var(--purple);
+    margin-left: 6px;
+    font-weight: 700;
+  }
+  .key-explain {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .key-explain strong { color: var(--ink); }
+
+  /* ── FOOTER ── */
+  .print-footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--gray);
+  }
+  .print-footer strong { color: var(--ink); }
+
+  /* ── SCREEN ONLY BUTTON ── */
+  .print-btn {
+    display: block;
+    margin: 32px auto 0;
+    padding: 14px 36px;
+    background: var(--purple);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.15s;
+  }
+  .print-btn:hover { background: #3d33a0; }
+</style>
+</head>
+<body>
+<div class="screen-wrap">
+
+  <!-- HEADER -->
+  <div class="print-header">
+    <div>
+      <div class="print-kicker">ELEVATE Conference · Weekly Game</div>
+      <div class="print-title">Two Truths<br/>&amp; <em>a Lie.</em></div>
+    </div>
+    <div class="print-meta">
+      <strong>Apple Intelligence Edition</strong><br/>
+      Issue #[XX] &nbsp;·&nbsp; [Date]<br/>
+      5 Rounds
+    </div>
+  </div>
+
+  <div class="print-instructions">
+    <strong>How to play:</strong> Each round has three statements about Apple Intelligence. Two are true. One is a lie. Circle the letter of the statement you think is the lie. Check your answers on page 2 — and read the explanation to sharpen your customer conversations.
+  </div>
+
+  <!-- NAME / TEAM -->
+  <div class="name-row">
+    <div class="name-field">Name <div class="line"></div></div>
+    <div class="name-field">Role <div class="line"></div></div>
+    <div class="name-field">Score <div class="line"></div></div>
+  </div>
+
+  <!-- ROUND 1 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">Round 1</div>
+      <div class="round-topic">Apple Intelligence · Writing Tools</div>
+    </div>
+    <div class="round-prompt">Which statement about Apple Intelligence Writing Tools is the lie?</div>
+    <div class="stmt-list">
+      <div class="stmt-row">
+        <div class="stmt-bubble">A</div>
+        <div class="stmt-text">Writing Tools can rewrite, proofread, and summarize text across Mail, Notes, Pages, and most third-party apps.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">B</div>
+        <div class="stmt-text">Writing Tools can generate entirely new documents or essays from scratch using just a short prompt.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">C</div>
+        <div class="stmt-text">Priority Messages in Mail uses Apple Intelligence to surface emails that need your attention urgently.</div>
+      </div>
+    </div>
+    <div class="my-answer">
+      My answer:
+      <div class="answer-boxes">
+        <div class="answer-box">A</div>
+        <div class="answer-box">B</div>
+        <div class="answer-box">C</div>
+      </div>
+      <span style="font-size:10px;opacity:0.5;">(circle one)</span>
+    </div>
+  </div>
+
+  <hr class="round-divider"/>
+
+  <!-- ROUND 2 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">Round 2</div>
+      <div class="round-topic">Apple Intelligence · Siri</div>
+    </div>
+    <div class="round-prompt">Which statement about the new Apple Intelligence-powered Siri is the lie?</div>
+    <div class="stmt-list">
+      <div class="stmt-row">
+        <div class="stmt-bubble">A</div>
+        <div class="stmt-text">The new Siri can take actions inside third-party apps — like editing a photo in a photography app — using App Intents.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">B</div>
+        <div class="stmt-text">Siri with Apple Intelligence can now read your screen and answer questions about what's currently displayed.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">C</div>
+        <div class="stmt-text">Apple Intelligence gives Siri access to the internet in real time so it can answer any live web search query directly.</div>
+      </div>
+    </div>
+    <div class="my-answer">
+      My answer:
+      <div class="answer-boxes">
+        <div class="answer-box">A</div>
+        <div class="answer-box">B</div>
+        <div class="answer-box">C</div>
+      </div>
+      <span style="font-size:10px;opacity:0.5;">(circle one)</span>
+    </div>
+  </div>
+
+  <hr class="round-divider"/>
+
+  <!-- ROUND 3 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">Round 3</div>
+      <div class="round-topic">Apple Intelligence · Privacy</div>
+    </div>
+    <div class="round-prompt">Which statement about how Apple Intelligence handles privacy is the lie?</div>
+    <div class="stmt-list">
+      <div class="stmt-row">
+        <div class="stmt-bubble">A</div>
+        <div class="stmt-text">Apple Intelligence processes most requests entirely on-device, so your data never leaves your iPhone, iPad, or Mac.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">B</div>
+        <div class="stmt-text">When a request requires more computing power, Private Cloud Compute processes it on Apple servers — and Apple cannot access that data.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">C</div>
+        <div class="stmt-text">All Apple Intelligence features require an internet connection because on-device processing doesn't have enough power for AI tasks.</div>
+      </div>
+    </div>
+    <div class="my-answer">
+      My answer:
+      <div class="answer-boxes">
+        <div class="answer-box">A</div>
+        <div class="answer-box">B</div>
+        <div class="answer-box">C</div>
+      </div>
+      <span style="font-size:10px;opacity:0.5;">(circle one)</span>
+    </div>
+  </div>
+
+  <hr class="round-divider"/>
+
+  <!-- ROUND 4 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">Round 4</div>
+      <div class="round-topic">Apple Intelligence · Image Features</div>
+    </div>
+    <div class="round-prompt">Which statement about Apple Intelligence image features is the lie?</div>
+    <div class="stmt-list">
+      <div class="stmt-row">
+        <div class="stmt-bubble">A</div>
+        <div class="stmt-text">Image Playground lets users create images in three styles: Animation, Illustration, and Sketch.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">B</div>
+        <div class="stmt-text">Genmoji can generate a custom emoji based on a text description or even modeled on a person from your Photos.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">C</div>
+        <div class="stmt-text">Image Wand in Notes can turn a rough sketch or empty space into a polished, photorealistic photograph.</div>
+      </div>
+    </div>
+    <div class="my-answer">
+      My answer:
+      <div class="answer-boxes">
+        <div class="answer-box">A</div>
+        <div class="answer-box">B</div>
+        <div class="answer-box">C</div>
+      </div>
+      <span style="font-size:10px;opacity:0.5;">(circle one)</span>
+    </div>
+  </div>
+
+  <hr class="round-divider"/>
+
+  <!-- ROUND 5 -->
+  <div class="round">
+    <div class="round-header">
+      <div class="round-num">Round 5</div>
+      <div class="round-topic">Apple Intelligence · Device Availability</div>
+    </div>
+    <div class="round-prompt">Which statement about which devices support Apple Intelligence is the lie?</div>
+    <div class="stmt-list">
+      <div class="stmt-row">
+        <div class="stmt-bubble">A</div>
+        <div class="stmt-text">Apple Intelligence requires iPhone 15 Pro or later, or any iPhone 16 model, on iOS 18.1 or later.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">B</div>
+        <div class="stmt-text">On Mac, Apple Intelligence is available on all Apple Silicon Macs — M1 and later.</div>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-bubble">C</div>
+        <div class="stmt-text">Apple Intelligence is available on all iPad models running iPadOS 18, including older A-series chip iPads.</div>
+      </div>
+    </div>
+    <div class="my-answer">
+      My answer:
+      <div class="answer-boxes">
+        <div class="answer-box">A</div>
+        <div class="answer-box">B</div>
+        <div class="answer-box">C</div>
+      </div>
+      <span style="font-size:10px;opacity:0.5;">(circle one)</span>
+    </div>
+  </div>
+
+  <div class="print-footer">
+    <span><strong>ELEVATE</strong> · Apple U.S. Education Sales · Confidential</span>
+    <span>Log in. Level up. Leave inspired.</span>
+  </div>
+
+  <!-- PAGE BREAK → ANSWER KEY -->
+  <div class="page-break" style="margin-top:48px;border-top:2px dashed #ccc;padding-top:8px;" class="no-print">
+    <div style="text-align:center;font-size:11px;color:#999;letter-spacing:0.1em;text-transform:uppercase;padding:4px 0 32px;">✂ &nbsp; Cut here or print as separate page &nbsp; ✂</div>
+  </div>
+
+  <!-- ANSWER KEY -->
+  <div class="answer-key">
+    <div class="print-kicker" style="margin-bottom:6px;">Answer Key — Facilitator Copy</div>
+    <div class="key-header">The Lies, <em style="font-style:italic;color:#5b4fcf;">Revealed.</em></div>
+    <div class="key-sub">Share after everyone has submitted — or reveal live at the next session.</div>
+    <hr class="key-rule"/>
+
+    <div class="key-item">
+      <div class="key-badge">1</div>
+      <div class="key-content">
+        <div class="key-topic">Writing Tools</div>
+        <div class="key-answer">The Lie: Statement B <span>B</span></div>
+        <div class="key-explain">Writing Tools enhance and transform <strong>existing text</strong> — they don't generate new documents from a blank prompt. When customers ask "can it write my reports for me?" the honest answer is: it can rewrite, summarize, and polish — but it works with content you've already started.</div>
+      </div>
+    </div>
+
+    <div class="key-item">
+      <div class="key-badge">2</div>
+      <div class="key-content">
+        <div class="key-topic">Siri</div>
+        <div class="key-answer">The Lie: Statement C <span>C</span></div>
+        <div class="key-explain">Siri with Apple Intelligence doesn't independently access live internet search. For web queries it integrates with <strong>ChatGPT (with user permission)</strong> or uses on-device knowledge. The power is personal context — not live web access like Google.</div>
+      </div>
+    </div>
+
+    <div class="key-item">
+      <div class="key-badge">3</div>
+      <div class="key-content">
+        <div class="key-topic">Privacy</div>
+        <div class="key-answer">The Lie: Statement C <span>C</span></div>
+        <div class="key-explain">Most Apple Intelligence runs <strong>entirely on-device</strong> — no internet needed. Private Cloud Compute handles complex tasks without Apple being able to read your data. This is one of Apple's biggest competitive differentiators — lead with it confidently.</div>
+      </div>
+    </div>
+
+    <div class="key-item">
+      <div class="key-badge">4</div>
+      <div class="key-content">
+        <div class="key-topic">Image Features</div>
+        <div class="key-answer">The Lie: Statement C <span>C</span></div>
+        <div class="key-explain">Image Wand creates images in the same <strong>stylized, illustrated aesthetic</strong> as Image Playground — not photorealistic photos. Setting the right expectation prevents disappointment post-purchase.</div>
+      </div>
+    </div>
+
+    <div class="key-item">
+      <div class="key-badge">5</div>
+      <div class="key-content">
+        <div class="key-topic">Device Availability</div>
+        <div class="key-answer">The Lie: Statement C <span>C</span></div>
+        <div class="key-explain">Apple Intelligence requires an iPad with an <strong>M1 chip or later</strong> — not all iPads running iPadOS 18. This is the most common customer misconception — and your strongest upgrade conversation opener for schools with older iPad fleets.</div>
+      </div>
+    </div>
+
+    <div class="print-footer" style="margin-top:32px;">
+      <span><strong>ELEVATE</strong> · Apple U.S. Education Sales · Facilitator Copy — Do Not Distribute</span>
+      <span>Log in. Level up. Leave inspired.</span>
+    </div>
+  </div>
+
+  <!-- SCREEN PRINT BUTTON -->
+  <button class="print-btn no-print" onclick="window.print()">🖨 &nbsp; Print This Sheet</button>
+
+</div>
+</body>
+</html>

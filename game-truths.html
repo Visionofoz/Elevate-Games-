@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Two Truths & a Lie — Apple Intelligence · ELEVATE</title>
+
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --purple: #5b4fcf;
+    --purple-light: #ede9ff;
+    --purple-mid: #c4baff;
+    --purple-dark: #3d33a0;
+    --red: #e05252;
+    --red-light: #fdeaea;
+    --green: #2d9e6b;
+    --green-light: #e4f5ee;
+    --gray: #6b6b6b;
+    --gray-light: #f4f4f4;
+    --rule: #e2e2e2;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+    background: #fff;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── PAGE SHELL ── */
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* ── HEADER ── */
+  .game-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .game-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 6px;
+  }
+  .game-title {
+    font-family: Georgia,'Times New Roman',serif;
+    font-size: 42px;
+    line-height: 1.05;
+    color: var(--ink);
+    max-width: 420px;
+  }
+  .game-title em {
+    font-style: italic;
+    color: var(--purple);
+  }
+  .score-pill {
+    background: var(--purple-light);
+    border: 1.5px solid var(--purple-mid);
+    border-radius: 100px;
+    padding: 8px 18px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .score-num {
+    font-family: Georgia,'Times New Roman',serif;
+    font-size: 28px;
+    color: var(--purple);
+    line-height: 1;
+  }
+  .score-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple);
+    opacity: 0.6;
+  }
+
+  .game-desc {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.65;
+    margin: 12px 0 0;
+    max-width: 520px;
+  }
+
+  /* hand-drawn underline via SVG background */
+  .squiggle {
+    display: inline;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='8'%3E%3Cpath d='M0,5 Q25,1 50,5 Q75,9 100,5 Q125,1 150,5 Q175,9 200,5' stroke='%235b4fcf' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    background-size: 80px 8px;
+    padding-bottom: 6px;
+  }
+
+  /* ── DIVIDER ── */
+  .rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 32px 0;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--rule);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--purple);
+    border-radius: 100px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray);
+    white-space: nowrap;
+  }
+
+  /* ── ROUND CARD ── */
+  .round-card {
+    position: relative;
+  }
+  .round-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .round-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple);
+    background: var(--purple-light);
+    border: 1.5px solid var(--purple-mid);
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .round-topic {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray);
+  }
+
+  .round-prompt {
+    font-family: Georgia,'Times New Roman',serif;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 28px;
+    max-width: 560px;
+  }
+
+  /* ── STATEMENT CARDS ── */
+  .statements {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stmt {
+    position: relative;
+    border: 1.5px solid var(--rule);
+    border-radius: 12px;
+    padding: 18px 20px 18px 60px;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+    background: var(--white);
+    user-select: none;
+  }
+  .stmt:hover:not(.revealed) {
+    border-color: var(--purple-mid);
+    background: var(--purple-light);
+    transform: translateX(3px);
+  }
+  .stmt.selected:not(.revealed) {
+    border-color: var(--purple);
+    background: var(--purple-light);
+  }
+  .stmt-letter {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gray-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray);
+    transition: background 0.18s, color 0.18s;
+    flex-shrink: 0;
+  }
+  .stmt.selected:not(.revealed) .stmt-letter {
+    background: var(--purple);
+    color: var(--white);
+  }
+  .stmt-text {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* revealed states */
+  .stmt.revealed.correct-answer {
+    border-color: var(--red);
+    background: var(--red-light);
+  }
+  .stmt.revealed.correct-answer .stmt-letter {
+    background: var(--red);
+    color: var(--white);
+  }
+  .stmt.revealed.correct-answer .stmt-text {
+    color: var(--red);
+  }
+  .stmt.revealed.truth {
+    border-color: var(--rule);
+    background: var(--white);
+    opacity: 0.55;
+    cursor: default;
+  }
+  .stmt.revealed.truth .stmt-letter {
+    background: var(--rule);
+    color: var(--gray);
+  }
+
+  /* if player picked wrong */
+  .stmt.revealed.player-wrong {
+    border-color: var(--red);
+    background: var(--red-light);
+    opacity: 0.7;
+  }
+  .stmt.revealed.player-wrong .stmt-letter {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  /* if player picked right */
+  .stmt.revealed.player-right.correct-answer {
+    border-color: var(--green);
+    background: var(--green-light);
+    opacity: 1;
+  }
+  .stmt.revealed.player-right.correct-answer .stmt-letter {
+    background: var(--green);
+    color: var(--white);
+  }
+  .stmt.revealed.player-right.correct-answer .stmt-text {
+    color: var(--green);
+  }
+
+  .stmt-tag {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .tag-lie { background: #fcd4d4; color: var(--red); }
+  .tag-truth { background: #e8e8e8; color: #666; }
+  .tag-correct { background: #c8eedd; color: var(--green); }
+
+  /* ── EXPLANATION BOX ── */
+  .explanation {
+    display: none;
+    border-left: 3px solid var(--purple);
+    padding: 16px 20px;
+    background: var(--purple-light);
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 24px;
+    animation: fadeSlide 0.3s ease;
+  }
+  .explanation.show { display: block; }
+  .explanation-head {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 6px;
+  }
+  .explanation-text {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .explanation-text strong { color: var(--purple); }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SUBMIT / NEXT ── */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+  }
+  .btn {
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary {
+    background: var(--purple);
+    color: var(--white);
+  }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--purple);
+    border: 1.5px solid var(--purple-mid);
+  }
+  .btn-ghost:hover { background: var(--purple-light); }
+
+  /* ── RESULT SCREEN ── */
+  .result-screen {
+    display: none;
+    text-align: center;
+    padding: 40px 0 20px;
+    animation: fadeSlide 0.4s ease;
+  }
+  .result-screen.show { display: block; }
+
+  .result-illustration {
+    margin: 0 auto 24px;
+    width: 120px;
+    height: 120px;
+  }
+  .result-title {
+    font-family: Georgia,'Times New Roman',serif;
+    font-size: 36px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .result-score-display {
+    font-family: Georgia,'Times New Roman',serif;
+    font-size: 64px;
+    color: var(--purple);
+    line-height: 1;
+    margin: 16px 0 8px;
+  }
+  .result-score-sub {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 24px;
+  }
+  .result-msg {
+    font-size: 16px;
+    color: var(--gray);
+    line-height: 1.65;
+    max-width: 440px;
+    margin: 0 auto 32px;
+  }
+  .result-msg strong { color: var(--ink); }
+
+  .result-breakdown {
+    text-align: left;
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    margin-top: 8px;
+  }
+  .result-breakdown-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 16px;
+  }
+  .result-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 14px;
+  }
+  .result-row:last-child { border-bottom: none; }
+  .result-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+  }
+  .dot-correct { background: var(--green); }
+  .dot-wrong   { background: var(--red); }
+  .result-row-text { line-height: 1.5; color: var(--ink); }
+  .result-row-text span { color: var(--gray); font-size: 13px; display: block; margin-top: 2px; }
+
+  /* hand-drawn decorative elements via SVG */
+  .deco-circle {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.12;
+  }
+
+  /* ── PRINT HIDDEN ── */
+  @media print { .no-print { display: none !important; } }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .page { padding: 32px 20px 60px; }
+    .game-title { font-size: 32px; }
+    .game-header { flex-direction: column; gap: 16px; }
+    .score-pill { align-self: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="game-header">
+    <div>
+      <div class="game-kicker">🎮 &nbsp;ELEVATE · Weekly Game</div>
+      <div class="game-title">Two Truths<br/>&amp; <em>a Lie.</em></div>
+    </div>
+    <div class="score-pill">
+      <div class="score-num" id="scoreDisplay">0</div>
+      <div class="score-label">Points</div>
+    </div>
+  </div>
+
+  <p class="game-desc">Three statements about <span class="squiggle">Apple Intelligence</span>. Two are true. One is false. Pick the lie — and find out why it matters for your customer conversations.</p>
+
+  <hr class="rule"/>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap no-print">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">Round 1 of 5</div>
+  </div>
+
+  <!-- GAME AREA -->
+  <div id="gameArea">
+    <div class="round-card" id="roundCard">
+      <!-- injected by JS -->
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="result-screen" id="resultScreen">
+    <svg class="result-illustration" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- hand-drawn style star/trophy -->
+      <circle cx="60" cy="60" r="52" fill="none" stroke="#5b4fcf" stroke-width="2.5" stroke-dasharray="6 4" stroke-linecap="round"/>
+      <text x="60" y="75" text-anchor="middle" font-size="54" font-family="serif">🧠</text>
+    </svg>
+    <div class="result-title">Round Complete.</div>
+    <div class="result-score-display" id="finalScore">0/5</div>
+    <div class="result-score-sub">Apple Intelligence questions answered</div>
+    <p class="result-msg" id="resultMsg"></p>
+    <div class="btn-row no-print" style="justify-content:center;margin-bottom:32px;">
+      <button class="btn btn-primary" onclick="restartGame()">Play Again</button>
+      <button class="btn btn-ghost" onclick="window.print()">Print Results</button>
+    </div>
+    <div class="result-breakdown">
+      <div class="result-breakdown-title">Your Round</div>
+      <div id="breakdownList"></div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ── QUESTION DATA ──────────────────────────────────────────────────────────
+const rounds = [
+  {
+    topic: "Apple Intelligence · Writing Tools",
+    prompt: "Which one of these is the lie about Apple Intelligence Writing Tools?",
+    statements: [
+      "Writing Tools can rewrite, proofread, and summarize text across Mail, Notes, Pages, and most third-party apps.",
+      "Writing Tools can generate entirely new documents or essays from scratch using just a short prompt.",
+      "Priority Messages in Mail uses Apple Intelligence to surface emails that need your attention urgently."
+    ],
+    lieIndex: 1,
+    explanation: "Writing Tools enhance and transform existing text — they don't generate new documents from a blank prompt. That's a key distinction when customers ask 'can it write my reports for me?' The answer is nuanced: it can rewrite and summarize, but it works with content you've already started."
+  },
+  {
+    topic: "Apple Intelligence · Siri",
+    prompt: "Which one of these is the lie about the new Apple Intelligence-powered Siri?",
+    statements: [
+      "The new Siri can take actions inside third-party apps — like editing a photo in a photography app — using App Intents.",
+      "Siri with Apple Intelligence can now read your screen and answer questions about what's currently displayed.",
+      "Apple Intelligence gives Siri access to the internet in real time so it can answer any live web search query directly."
+    ],
+    lieIndex: 2,
+    explanation: "Siri with Apple Intelligence doesn't independently access live internet search. For web queries, it integrates with ChatGPT (with user permission) or uses on-device knowledge. This is important to clarify with customers who may expect a Google-like experience — the power is in personal context, not live web access."
+  },
+  {
+    topic: "Apple Intelligence · Privacy",
+    prompt: "Which one of these is the lie about how Apple Intelligence handles privacy?",
+    statements: [
+      "Apple Intelligence processes most requests entirely on-device, so your data never leaves your iPhone, iPad, or Mac.",
+      "When a request requires more computing power, Private Cloud Compute processes it on Apple servers — and Apple cannot access that data.",
+      "All Apple Intelligence features require an internet connection because on-device processing doesn't have enough power for AI tasks."
+    ],
+    lieIndex: 2,
+    explanation: "This is one of Apple's biggest differentiators — and a powerful sales point. The majority of Apple Intelligence requests run entirely on-device. Private Cloud Compute handles complex tasks without Apple being able to read your data. You can lead with this confidently against competitors who process everything in the cloud."
+  },
+  {
+    topic: "Apple Intelligence · Image Playground & Genmoji",
+    prompt: "Which one of these is the lie about Apple Intelligence image features?",
+    statements: [
+      "Image Playground lets users create images in three styles: Animation, Illustration, and Sketch.",
+      "Genmoji can generate a custom emoji based on a text description or even modeled on a person from your Photos.",
+      "Image Wand in Notes can turn a rough sketch or empty space into a polished, photorealistic photograph."
+    ],
+    lieIndex: 2,
+    explanation: "Image Wand creates images in the same stylized, illustrated aesthetic as Image Playground — not photorealistic photos. It's designed to feel playful and creative, not like stock photography. Setting the right expectation here prevents customer disappointment post-purchase."
+  },
+  {
+    topic: "Apple Intelligence · Device Availability",
+    prompt: "Which one of these is the lie about which devices support Apple Intelligence?",
+    statements: [
+      "Apple Intelligence requires iPhone 15 Pro or later, or any iPhone 16 model, on iOS 18.1 or later.",
+      "On Mac, Apple Intelligence is available on all Apple Silicon Macs — M1 and later.",
+      "Apple Intelligence is available on all iPad models running iPadOS 18, including older A-series chip iPads."
+    ],
+    lieIndex: 2,
+    explanation: "Apple Intelligence requires an iPad with an M1 chip or later — not all iPads running iPadOS 18. This is one of the most common customer misconceptions and a real objection handler: if a school has older iPads, Apple Intelligence is the natural upgrade conversation. Know your M-chip iPad lineup cold."
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+let currentRound = 0;
+let score = 0;
+let selected = null;
+let answered = false;
+let playerAnswers = [];
+
+// ── RENDER ────────────────────────────────────────────────────────────────
+function renderRound() {
+  const r = rounds[currentRound];
+  answered = false;
+  selected = null;
+
+  // progress
+  const pct = (currentRound / rounds.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `Round ${currentRound + 1} of ${rounds.length}`;
+
+  const letters = ['A', 'B', 'C'];
+
+  const html = `
+    <div class="round-meta">
+      <div class="round-badge">Round ${currentRound + 1}</div>
+      <div class="round-topic">${r.topic}</div>
+    </div>
+    <div class="round-prompt">${r.prompt}</div>
+    <div class="statements" id="stmtList">
+      ${r.statements.map((s, i) => `
+        <div class="stmt" id="stmt${i}" onclick="selectStatement(${i})">
+          <div class="stmt-letter">${letters[i]}</div>
+          <div class="stmt-text">${s}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="explanation" id="explanationBox">
+      <div class="explanation-head">Why it matters for your customers</div>
+      <div class="explanation-text">${r.explanation}</div>
+    </div>
+    <div class="btn-row no-print">
+      <button class="btn btn-primary" id="submitBtn" onclick="submitAnswer()" disabled>That's the lie →</button>
+    </div>
+  `;
+
+  document.getElementById('roundCard').innerHTML = html;
+}
+
+function selectStatement(idx) {
+  if (answered) return;
+  selected = idx;
+  document.querySelectorAll('.stmt').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+  document.getElementById('submitBtn').disabled = false;
+}
+
+function submitAnswer() {
+  if (selected === null || answered) return;
+  answered = true;
+
+  const r = rounds[currentRound];
+  const correct = selected === r.lieIndex;
+
+  if (correct) {
+    score++;
+    document.getElementById('scoreDisplay').textContent = score;
+  }
+
+  playerAnswers.push({ round: currentRound, correct, selected, lie: r.lieIndex, topic: r.topic });
+
+  // reveal all statements
+  r.statements.forEach((_, i) => {
+    const el = document.getElementById('stmt' + i);
+    el.classList.add('revealed');
+    el.onclick = null;
+
+    if (i === r.lieIndex) {
+      el.classList.add('correct-answer');
+      // tag
+      const tag = document.createElement('div');
+      tag.className = 'stmt-tag ' + (correct && i === selected ? 'tag-correct' : 'tag-lie');
+      tag.textContent = correct && i === selected ? '✓ Correct — This is the lie' : '✗ This was the lie';
+      el.querySelector('.stmt-text').appendChild(tag);
+    } else {
+      el.classList.add('truth');
+      const tag = document.createElement('div');
+      tag.className = 'stmt-tag tag-truth';
+      tag.textContent = 'Truth';
+      el.querySelector('.stmt-text').appendChild(tag);
+    }
+
+    // mark player's wrong pick
+    if (!correct && i === selected) {
+      el.classList.add('player-wrong');
+    }
+    // mark player's correct pick
+    if (correct && i === selected) {
+      el.classList.add('player-right');
+    }
+  });
+
+  // show explanation
+  document.getElementById('explanationBox').classList.add('show');
+
+  // swap button
+  const btnRow = document.querySelector('.btn-row');
+  const isLast = currentRound === rounds.length - 1;
+  btnRow.innerHTML = isLast
+    ? `<button class="btn btn-primary no-print" onclick="showResults()">See My Results →</button>`
+    : `<button class="btn btn-primary no-print" onclick="nextRound()">Next Round →</button>`;
+}
+
+function nextRound() {
+  currentRound++;
+  renderRound();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showResults() {
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressLabel').textContent = 'Complete!';
+  document.getElementById('gameArea').style.display = 'none';
+  document.getElementById('resultScreen').classList.add('show');
+  document.getElementById('finalScore').textContent = `${score}/${rounds.length}`;
+
+  const msgs = [
+    { min: 5, text: `<strong>Perfect score.</strong> You know Apple Intelligence cold — that confidence will show in every customer conversation.` },
+    { min: 4, text: `<strong>Solid round.</strong> You're well ahead of the curve. Review the one you missed — those edge cases are exactly what customers ask.` },
+    { min: 3, text: `<strong>Good start.</strong> You've got the foundation. The questions you missed are worth a deeper look before your next school visit.` },
+    { min: 0, text: `<strong>Apple Intelligence moves fast.</strong> Use this as your starting point — the explanations above are your cheat sheet for customer conversations.` },
+  ];
+  const msg = msgs.find(m => score >= m.min);
+  document.getElementById('resultMsg').innerHTML = msg.text;
+
+  // breakdown
+  const breakdown = playerAnswers.map((a, i) => {
+    const r = rounds[a.round];
+    return `
+      <div class="result-row">
+        <div class="result-dot ${a.correct ? 'dot-correct' : 'dot-wrong'}">${a.correct ? '✓' : '✗'}</div>
+        <div class="result-row-text">
+          ${r.topic}
+          <span>${a.correct ? 'Correctly identified the lie.' : `Picked "${['A','B','C'][a.selected]}" — the lie was "${['A','B','C'][r.lieIndex]}".`}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('breakdownList').innerHTML = breakdown;
+}
+
+function restartGame() {
+  currentRound = 0;
+  score = 0;
+  selected = null;
+  answered = false;
+  playerAnswers = [];
+  document.getElementById('scoreDisplay').textContent = '0';
+  document.getElementById('resultScreen').classList.remove('show');
+  document.getElementById('gameArea').style.display = 'block';
+  renderRound();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+renderRound();
+</script>
+
+</body>
+</html>

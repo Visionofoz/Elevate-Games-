@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Complete the Pitch — Printable · ELEVATE</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#1A1A2E;
+  --blue:#1B4FD8;
+  --blue-lt:#EEF3FF;
+  --blue-md:#C5D7FF;
+  --purp:#6C3DD4;
+  --purp-lt:#F2EDFF;
+  --purp-md:#C9B8FF;
+  --coral:#F4603A;
+  --coral-lt:#FFF0EC;
+  --sun:#FFD60A;
+  --green:#1D9E6B;
+  --green-lt:#E4F8F0;
+  --teal:#0B7A6E;
+  --gray:#6B6B7B;
+  --rule:#E8E4DC;
+  --cream:#FFFCF5;
+  --white:#FFFFFF;
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+}
+.wrap{max-width:760px;margin:0 auto;padding:40px 32px 60px;}
+
+/* ── HEADER ── */
+.p-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  border-bottom:3px solid var(--ink);padding-bottom:16px;margin-bottom:6px;
+}
+.p-kicker{
+  font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:6px;
+}
+.p-title{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:40px;line-height:1.05;color:var(--ink);
+}
+.p-title .a1{color:var(--blue);}
+.p-title .a2{color:var(--coral);}
+.p-meta{
+  text-align:right;font-size:12px;color:var(--gray);line-height:1.9;
+}
+.p-meta strong{color:var(--ink);font-weight:800;}
+
+.p-instruct{
+  font-size:13px;font-weight:600;color:var(--gray);
+  padding:12px 0 18px;border-bottom:1px solid var(--rule);margin-bottom:24px;
+  line-height:1.65;
+}
+.p-instruct strong{color:var(--ink);}
+
+/* ── NAME ROW ── */
+.name-row{display:flex;gap:28px;margin-bottom:28px;}
+.nf{flex:1;display:flex;align-items:flex-end;gap:6px;
+  font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;}
+.nf .nl{flex:1;border-bottom:1.5px solid var(--ink);height:22px;}
+
+/* ── PITCH BLOCK ── */
+.pitch{margin-bottom:28px;}
+.pitch-header{
+  display:flex;align-items:center;gap:10px;margin-bottom:10px;
+}
+.pitch-num{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:11px;letter-spacing:0.08em;
+  color:var(--white);padding:4px 12px;border-radius:100px;
+}
+.pitch-topic{font-size:11px;font-weight:700;color:var(--gray);}
+
+.scene-box{
+  font-size:13px;font-weight:600;color:var(--gray);
+  background:var(--cream);border-left:4px solid var(--rule);
+  border-radius:0 10px 10px 0;padding:12px 14px;
+  margin-bottom:14px;line-height:1.65;font-style:italic;
+}
+.pitch-label{
+  font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:8px;
+}
+.pitch-body{
+  font-size:15px;font-weight:700;line-height:2.0;color:var(--ink);
+}
+
+/* blank line */
+.bl{
+  display:inline-block;
+  border-bottom:2px solid var(--ink);
+  min-width:110px;
+  vertical-align:bottom;
+  margin:0 3px;
+  height:20px;
+  position:relative;
+}
+.bl-num{
+  position:absolute;
+  bottom:-14px;left:50%;transform:translateX(-50%);
+  font-size:9px;font-weight:800;
+  color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;
+  white-space:nowrap;
+}
+
+/* word bank */
+.wb-section{margin-top:14px;}
+.wb-label{
+  font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--purp);margin-bottom:6px;
+}
+.wb-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.wb-chip{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:13px;
+  color:var(--purp);
+  background:var(--purp-lt);
+  border:1.5px solid var(--purp-md);
+  border-radius:100px;padding:4px 14px;
+}
+
+/* score boxes */
+.score-row{
+  display:flex;align-items:center;gap:10px;
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px dashed var(--rule);
+  font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;
+}
+.score-box{
+  width:28px;height:28px;border:1.5px solid var(--rule);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;color:var(--gray);
+}
+
+/* ── DIVIDER ── */
+hr.div{border:none;border-top:1px solid var(--rule);margin:24px 0;}
+
+/* ── FOOTER ── */
+.p-footer{
+  margin-top:36px;padding-top:14px;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;
+  font-size:11px;color:var(--gray);
+}
+
+/* ── ANSWER KEY ── */
+.key-wrap{padding-top:36px;}
+.key-header{font-family:Georgia,'Times New Roman',serif;font-size:30px;color:var(--ink);margin-bottom:4px;}
+.key-header span{color:var(--purp);}
+.key-sub{font-size:13px;font-weight:600;color:var(--gray);margin-bottom:20px;}
+.key-rule{border:none;border-top:2.5px solid var(--ink);margin-bottom:20px;}
+
+.key-item{
+  display:flex;gap:16px;
+  padding:16px 0;border-bottom:1px solid var(--rule);
+}
+.key-item:last-child{border-bottom:none;}
+.key-num{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:22px;color:var(--white);
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:2px;
+}
+.key-body{}
+.key-topic{
+  font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+  margin-bottom:4px;
+}
+.key-answers{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:16px;color:var(--ink);
+  margin-bottom:6px;
+  line-height:1.6;
+}
+.key-answers .ans{
+  display:inline-block;
+  background:var(--green-lt);
+  border:1.5px solid #A8E6CC;
+  border-radius:6px;
+  padding:1px 10px;
+  color:var(--green);
+  margin:0 3px 3px 0;
+  font-size:14px;
+}
+.key-exp{
+  font-size:13px;font-weight:600;color:var(--gray);line-height:1.65;
+}
+.key-exp strong{color:var(--ink);font-weight:800;}
+
+/* ── PRINT ── */
+@media print{
+  .no-print{display:none!important;}
+  body{background:#fff;}
+  .wrap{padding:20px 24px;}
+  .pitch{page-break-inside:avoid;}
+  .page-break{page-break-after:always;}
+}
+.print-btn{
+  display:block;margin:32px auto 0;
+  padding:13px 36px;background:var(--blue);color:var(--white);
+  border:none;border-radius:100px;
+  font-family:Georgia,'Times New Roman',serif;font-size:16px;
+  cursor:pointer;transition:background 0.15s;
+}
+.print-btn:hover{background:#133FB0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="p-header">
+    <div>
+      <div class="p-kicker">ELEVATE Conference · Weekly Game</div>
+      <div class="p-title">
+        Complete<br/>
+        <span class="a1">the </span><span class="a2">Pitch.</span>
+      </div>
+    </div>
+    <div class="p-meta">
+      <strong>Apple Ecosystem Edition</strong><br/>
+      Issue #[XX] &nbsp;·&nbsp; [Date]<br/>
+      5 Pitches &nbsp;·&nbsp; 10 Points Total
+    </div>
+  </div>
+
+  <div class="p-instruct">
+    <strong>How to play:</strong> Each pitch has blanks to fill in. Use the word bank below each pitch — or go from memory. Score 2 points for each correct blank. Check your answers on the key page.
+  </div>
+
+  <div class="name-row">
+    <div class="nf">Name<div class="nl"></div></div>
+    <div class="nf">Role<div class="nl"></div></div>
+    <div class="nf">Score /10<div class="nl"></div></div>
+  </div>
+
+  <!-- ── PITCH 1 ── -->
+  <div class="pitch">
+    <div class="pitch-header">
+      <div class="pitch-num" style="background:#1B4FD8;">Pitch 1</div>
+      <div class="pitch-topic">iPad · Classroom Management</div>
+    </div>
+    <div class="scene-box">"We like the iPads, but our teachers are worried they won't be able to manage what students are doing on them."</div>
+    <div class="pitch-label">Your Pitch</div>
+    <div class="pitch-body">
+      That's actually one of the biggest strengths of iPad in the classroom. The
+      <span class="bl"><span class="bl-num">blank 1</span></span>
+      app lets teachers see every student's screen,
+      <span class="bl" style="min-width:80px;"><span class="bl-num">blank 2</span></span>
+      their device when needed, and guide the whole class to the same app — all from their own iPad. Combined with
+      <span class="bl" style="min-width:160px;"><span class="bl-num">blank 3</span></span>,
+      your IT team can deploy and manage every device in the district without touching a single one.
+    </div>
+    <div class="wb-section">
+      <div class="wb-label">Word Bank</div>
+      <div class="wb-chips">
+        <div class="wb-chip">Classroom</div>
+        <div class="wb-chip">lock</div>
+        <div class="wb-chip">Apple School Manager</div>
+        <div class="wb-chip">Jamf</div>
+        <div class="wb-chip">mute</div>
+        <div class="wb-chip">Schoolwork</div>
+      </div>
+    </div>
+    <div class="score-row">Score: <div class="score-box"></div> / 6 pts</div>
+  </div>
+
+  <hr class="div"/>
+
+  <!-- ── PITCH 2 ── -->
+  <div class="pitch">
+    <div class="pitch-header">
+      <div class="pitch-num" style="background:#6C3DD4;">Pitch 2</div>
+      <div class="pitch-topic">Mac · The Ecosystem Handoff</div>
+    </div>
+    <div class="scene-box">"Our faculty already have iPhones. Would switching to Mac actually make a difference for them, or is it just a different computer?"</div>
+    <div class="pitch-label">Your Pitch</div>
+    <div class="pitch-body">
+      It's a lot more than a different computer. When your faculty use Mac alongside iPhone, features like
+      <span class="bl" style="min-width:100px;"><span class="bl-num">blank 1</span></span>
+      let them answer calls and texts right on their Mac.
+      <span class="bl" style="min-width:160px;"><span class="bl-num">blank 2</span></span>
+      means they can copy something on their iPhone and paste it directly on their Mac — no AirDrop, no email to yourself. And with
+      <span class="bl" style="min-width:160px;"><span class="bl-num">blank 3</span></span>,
+      they can use their iPhone as a wireless webcam with automatic framing.
+    </div>
+    <div class="wb-section">
+      <div class="wb-label">Word Bank</div>
+      <div class="wb-chips">
+        <div class="wb-chip">Continuity</div>
+        <div class="wb-chip">Universal Clipboard</div>
+        <div class="wb-chip">Continuity Camera</div>
+        <div class="wb-chip">Handoff</div>
+        <div class="wb-chip">AirDrop</div>
+        <div class="wb-chip">Sidecar</div>
+      </div>
+    </div>
+    <div class="score-row">Score: <div class="score-box"></div> / 6 pts</div>
+  </div>
+
+  <hr class="div"/>
+
+  <!-- ── PITCH 3 ── -->
+  <div class="pitch">
+    <div class="pitch-header">
+      <div class="pitch-num" style="background:#F4603A;">Pitch 3</div>
+      <div class="pitch-topic">iPad · Higher Ed Productivity</div>
+    </div>
+    <div class="scene-box">"Students want something lighter than a laptop for class, but powerful enough to actually get work done."</div>
+    <div class="pitch-label">Your Pitch</div>
+    <div class="pitch-body">
+      iPad with
+      <span class="bl" style="min-width:140px;"><span class="bl-num">blank 1</span></span>
+      is exactly that middle ground. They get a
+      <span class="bl" style="min-width:60px;"><span class="bl-num">blank 2</span></span>
+      chip — the same power as many laptops — in something that weighs under a pound. For note-taking,
+      <span class="bl" style="min-width:110px;"><span class="bl-num">blank 3</span></span>
+      with Apple Pencil is a game-changer: they can write, sketch, annotate PDFs, and search their handwriting later.
+    </div>
+    <div class="wb-section">
+      <div class="wb-label">Word Bank</div>
+      <div class="wb-chips">
+        <div class="wb-chip">Magic Keyboard</div>
+        <div class="wb-chip">M2</div>
+        <div class="wb-chip">Apple Notes</div>
+        <div class="wb-chip">Smart Folio</div>
+        <div class="wb-chip">A16</div>
+        <div class="wb-chip">GoodNotes</div>
+      </div>
+    </div>
+    <div class="score-row">Score: <div class="score-box"></div> / 6 pts</div>
+  </div>
+
+  <hr class="div"/>
+
+  <!-- ── PITCH 4 ── -->
+  <div class="pitch">
+    <div class="pitch-header">
+      <div class="pitch-num" style="background:#0B7A6E;">Pitch 4</div>
+      <div class="pitch-topic">Mac · Security Objection</div>
+    </div>
+    <div class="scene-box">"Our security team pushes back on Macs because they say it's harder to manage and less secure than Windows with our current tools."</div>
+    <div class="pitch-label">Your Pitch</div>
+    <div class="pitch-body">
+      Mac is actually built for enterprise management. Every Mac ships with
+      <span class="bl" style="min-width:120px;"><span class="bl-num">blank 1</span></span>
+      built in — it's Apple's native framework that works with every major MDM. For security, the
+      <span class="bl" style="min-width:130px;"><span class="bl-num">blank 2</span></span>
+      chip has hardware-level encryption and a dedicated
+      <span class="bl" style="min-width:140px;"><span class="bl-num">blank 3</span></span>
+      that protects the boot process.
+    </div>
+    <div class="wb-section">
+      <div class="wb-label">Word Bank</div>
+      <div class="wb-chips">
+        <div class="wb-chip">MDM support</div>
+        <div class="wb-chip">Apple Silicon</div>
+        <div class="wb-chip">Secure Enclave</div>
+        <div class="wb-chip">FileVault</div>
+        <div class="wb-chip">Gatekeeper</div>
+        <div class="wb-chip">T2 chip</div>
+      </div>
+    </div>
+    <div class="score-row">Score: <div class="score-box"></div> / 6 pts</div>
+  </div>
+
+  <hr class="div"/>
+
+  <!-- ── PITCH 5 ── -->
+  <div class="pitch">
+    <div class="pitch-header">
+      <div class="pitch-num" style="background:#1D9E6B;">Pitch 5</div>
+      <div class="pitch-topic">Apple Ecosystem · Accessibility</div>
+    </div>
+    <div class="scene-box">"We have students with a wide range of needs — visual, motor, communication. Can one device really serve all of them?"</div>
+    <div class="pitch-label">Your Pitch</div>
+    <div class="pitch-body">
+      Apple builds accessibility into the OS — not a separate app or add-on. For students with visual needs,
+      <span class="bl" style="min-width:100px;"><span class="bl-num">blank 1</span></span>
+      provides full screen reading. For motor challenges,
+      <span class="bl" style="min-width:120px;"><span class="bl-num">blank 2</span></span>
+      lets students control their iPad or iPhone entirely with eye movement. And for communication needs,
+      <span class="bl" style="min-width:150px;"><span class="bl-num">blank 3</span></span>
+      turns a device into an AAC tool — no expensive third-party hardware required.
+    </div>
+    <div class="wb-section">
+      <div class="wb-label">Word Bank</div>
+      <div class="wb-chips">
+        <div class="wb-chip">VoiceOver</div>
+        <div class="wb-chip">Eye Tracking</div>
+        <div class="wb-chip">Assistive Access</div>
+        <div class="wb-chip">Switch Control</div>
+        <div class="wb-chip">Live Captions</div>
+        <div class="wb-chip">Magnifier</div>
+      </div>
+    </div>
+    <div class="score-row">Score: <div class="score-box"></div> / 6 pts</div>
+  </div>
+
+  <div class="p-footer">
+    <span><strong>ELEVATE</strong> · Apple U.S. Education Sales · Confidential</span>
+    <span>Log in. Level up. Leave inspired.</span>
+  </div>
+
+  <!-- PAGE BREAK -->
+  <div class="page-break"></div>
+  <div style="text-align:center;padding:12px 0 32px;font-size:11px;color:#aaa;letter-spacing:0.1em;text-transform:uppercase;" class="no-print">
+    ✂ &nbsp; Answer Key — Facilitator Page &nbsp; ✂
+  </div>
+
+  <!-- ══ ANSWER KEY ══ -->
+  <div class="key-wrap">
+    <div class="p-kicker">Answer Key — Facilitator Copy</div>
+    <div class="key-header">The Answers, <span>Revealed.</span></div>
+    <div class="key-sub">Share after everyone submits — or reveal live at the next session opening.</div>
+    <hr class="key-rule"/>
+
+    <div class="key-item">
+      <div class="key-num" style="background:#1B4FD8;">1</div>
+      <div class="key-body">
+        <div class="key-topic" style="color:#1B4FD8;">iPad · Classroom Management</div>
+        <div class="key-answers">
+          Blank 1: <span class="ans">Classroom</span>
+          Blank 2: <span class="ans">lock</span>
+          Blank 3: <span class="ans">Apple School Manager</span>
+        </div>
+        <div class="key-exp">The <strong>Classroom app</strong> is built-in and free. <strong>Lock</strong> is the verb that gets teachers excited — "freeze their screen" lands in the room. <strong>Apple School Manager</strong> handles zero-touch deployment at scale.</div>
+      </div>
+    </div>
+
+    <div class="key-item">
+      <div class="key-num" style="background:#6C3DD4;">2</div>
+      <div class="key-body">
+        <div class="key-topic" style="color:#6C3DD4;">Mac · The Ecosystem Handoff</div>
+        <div class="key-answers">
+          Blank 1: <span class="ans">Continuity</span>
+          Blank 2: <span class="ans">Universal Clipboard</span>
+          Blank 3: <span class="ans">Continuity Camera</span>
+        </div>
+        <div class="key-exp"><strong>Universal Clipboard</strong> is the demo moment — copy on iPhone, paste on Mac, watch jaws drop. <strong>Continuity Camera</strong> is the hidden gem for hybrid faculty — iPhone camera quality, no cables.</div>
+      </div>
+    </div>
+
+    <div class="key-item">
+      <div class="key-num" style="background:#F4603A;">3</div>
+      <div class="key-body">
+        <div class="key-topic" style="color:#F4603A;">iPad · Higher Ed Productivity</div>
+        <div class="key-answers">
+          Blank 1: <span class="ans">Magic Keyboard</span>
+          Blank 2: <span class="ans">M2</span>
+          Blank 3: <span class="ans">Apple Notes</span>
+        </div>
+        <div class="key-exp"><strong>Magic Keyboard</strong> is what makes iPad a laptop-replacement conversation. The <strong>M2</strong> chip grounds the claim with a spec parents and students recognize. <strong>Apple Notes</strong> is free and native — searchable handwriting is a genuine wow moment.</div>
+      </div>
+    </div>
+
+    <div class="key-item">
+      <div class="key-num" style="background:#0B7A6E;">4</div>
+      <div class="key-body">
+        <div class="key-topic" style="color:#0B7A6E;">Mac · Security Objection</div>
+        <div class="key-answers">
+          Blank 1: <span class="ans">MDM support</span>
+          Blank 2: <span class="ans">Apple Silicon</span>
+          Blank 3: <span class="ans">Secure Enclave</span>
+        </div>
+        <div class="key-exp">Native <strong>MDM support</strong> means their existing Jamf/Mosyle/Kandji works day one — no rip and replace. The <strong>Secure Enclave</strong> exists at the chip level, not software — that's the point that moves IT security teams.</div>
+      </div>
+    </div>
+
+    <div class="key-item">
+      <div class="key-num" style="background:#1D9E6B;">5</div>
+      <div class="key-body">
+        <div class="key-topic" style="color:#1D9E6B;">Apple Ecosystem · Accessibility</div>
+        <div class="key-answers">
+          Blank 1: <span class="ans">VoiceOver</span>
+          Blank 2: <span class="ans">Eye Tracking</span>
+          Blank 3: <span class="ans">Assistive Access</span>
+        </div>
+        <div class="key-exp"><strong>VoiceOver</strong> is the industry-standard screen reader — built in, free. <strong>Eye Tracking</strong> (iOS 18) needs zero hardware — just the front camera. <strong>Assistive Access</strong> is the AAC conversation. Close the pitch with: "These ship free on every device."</div>
+      </div>
+    </div>
+
+    <div class="p-footer" style="margin-top:28px;">
+      <span><strong>ELEVATE</strong> · Apple U.S. Education Sales · Facilitator Copy — Do Not Distribute</span>
+      <span>Log in. Level up. Leave inspired.</span>
+    </div>
+  </div>
+
+  <button class="print-btn no-print" onclick="window.print()">🖨 &nbsp; Print This Sheet</button>
+
+</div>
+</body>
+</html>
